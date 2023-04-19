@@ -38,8 +38,6 @@ if response1.status_code == requests.codes.ok:
 else:
     print("Error:", response1.status_code, response.text)
 
-
-
 # airport API
 airport_country = "US"
 airport_url = "https://api.api-ninjas.com/v1/airports?country={}".format(airport_country)
@@ -58,4 +56,10 @@ else:
 
 
 
+airport_url = 'https://api.api-ninjas.com/v1/airports?name={}'.format(country)
+airport_response = requests.get(airport_url, headers = {'X-Api-Key': 'UlC4xXn/1yAqzYBvCS/Wkg==EJ2pSOpCn3TEU3iQ'})
+if airport_response.status_code == requests.codes.ok:
+    print(airport_response.text)
+else:
+    print("Error:", airport_response.status_code, airport_response.text)
 
