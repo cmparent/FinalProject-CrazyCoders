@@ -21,3 +21,7 @@ def create_table(cities, cur, conn):
     
     cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER, country_ID INTEGER, weather_ID INTEGER, city TEXT, region TEXT, timezone TEXT, latitude INTEGER, longitute INTEGER, elevation INT)")
 
+
+
+
+cities = ["Detroit", "Ann Arbor", ""]
