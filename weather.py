@@ -21,7 +21,7 @@ def get_data_weather(city):
 def create_weather_table(cities, cur, conn):
     
     # cur.execute("DROP TABLE IF EXISTS weather")
-    cur.execute("CREATE TABLE IF NOT EXISTS weather (ID INTEGER PRIMARY KEY AUTOINCREMENT, country_ID INTEGER FOREIGN KEY, air_quality_ID INTEGER FOREIGN KEY, wind_speed INTEGER, wind_degrees INTEGER, temperature INTEGER, humidity INTEGER, sunrise INTEGER, sunset INTEGER, cloud_pct INTEGER, feels_like INTEGER, max_temp INTEGER, min_temp INTEGER)") 
+    cur.execute("CREATE TABLE IF NOT EXISTS weather (ID INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY(country_ID) REFERENCES country(ID), air_quality_ID INTEGER FOREIGN KEY, wind_speed INTEGER, wind_degrees INTEGER, temperature INTEGER, humidity INTEGER, sunrise INTEGER, sunset INTEGER, cloud_pct INTEGER, feels_like INTEGER, max_temp INTEGER, min_temp INTEGER)") 
 
     first = cur.fetchone()
 
