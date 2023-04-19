@@ -17,9 +17,9 @@ def get_data(city):
 
 def create_table(cities, cur, conn):
 
-    cur.execute('CREATE TABLE IF NOT EXISTS airports (ID INTEGER, ICAO_code INTEGER, IATA_code INTEGER, name TEXT, location_ID INTEGER)')
+    cur.execute('CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY AUTOINCREMENT, ICAO_code INTEGER, IATA_code INTEGER, name TEXT, location_ID INTEGER FOREIGN KEY)')
     
-    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER, country_ID INTEGER, weather_ID INTEGER, city TEXT, region TEXT, timezone TEXT, latitude INTEGER, longitute INTEGER, elevation INT)")
+    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY AUTOINCREMENT, country_ID INTEGER FOREIGN KEY, weather_ID INTEGER FOREIGN KEY, city TEXT, region TEXT, timezone TEXT, latitude INTEGER, longitute INTEGER, elevation INT)")
 
 
     count = 0
