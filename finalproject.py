@@ -30,6 +30,16 @@ cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER, AQI INTEGER, CO
 
 
 
+url1 = "'https://api.api-ninjas.com/v1/country?name=United States'
+response1 = requests.get(url, headers = {'X-Api-Key': 'KXNSpXxVeBlWPPAuIjI3Cg==7Oe7vdmd05QCcjZ7'})
+
+if response1.status_code == requests.codes.ok:
+    print(response1.text)
+else:
+    print("Error:", response1.status_code, response.text)
+
+
+
 # airport API
 airport_country = "US"
 airport_url = "https://api.api-ninjas.com/v1/airports?country={}".format(airport_country)
