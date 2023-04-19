@@ -19,13 +19,33 @@ cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER, AQI INTEGER, CO
 
 # weather API - get data
 
-url = "https://api.api-ninjas.com/v1/weather?country={}".format(country)
-# api_key = 
-response = requests.get(url, headers = {'X-Api-Key': 'ClqOtbxYh1QnlxYsIcDbWQ==6wVFffdvVGFwF4OI'})
-# print(response.text)
+# cities = []
 
-# country API
+# url = "https://api.api-ninjas.com/v1/weather?country={}".format(country)
+# # api_key = 
+# response = requests.get(url) #, headers = {'X-Api-Key': 'ClqOtbxYh1QnlxYsIcDbWQ==6wVFffdvVGFwF4OI'})
+# print(response)
+
+# # country API
+
+
 
 # airport API
+airport_country = "US"
+airport_url = "https://api.api-ninjas.com/v1/airports?country={}".format(airport_country)
+resp = requests.get(airport_url, headers = {'X-Api-Key': 'ClqOtbxYh1QnlxYsIcDbWQ==6wVFffdvVGFwF4OI'})
+
+if resp.status_code == requests.codes.ok:
+    print(resp.text)
+else:
+    print("Error:", resp.status_code, resp.text)
+
+# print(resp.tecleart.split())
+
+
+# resp = requests.get(airport_url, headers )
+# print(resp.text)
+
+
 
 
