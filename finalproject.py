@@ -1,11 +1,31 @@
 import unittest
 import json
 import os
+import sqlite3
 import requests
 
 
-<<<<<<< HEAD
-# changes!
-=======
-# changes!
->>>>>>> e152c6bcf9e27aae2b2e3c133f073a8457eb5655
+def create_tables(db):
+    path = os.path.dirname(os.path.abspath(__file__))
+    conn = sqlite3.connect(path+'/'+db)
+    cur = conn.cursor()
+
+    # cur.execute('DROP TABLE IF EXISTS airports')
+    cur.execute('CREATE TABLE IF NOT EXISTS airports (ID INTEGER, ICAO_code INTEGER, IATA_code INTEGER, name TEXT, location_ID INTEGER)')
+    cur.execute("CREATE TABLE IF NOT EXISTS (")
+
+
+
+    cur.execute("SELECT * FROM airports")
+
+
+
+create_tables("airports")
+
+
+
+
+
+
+
+
