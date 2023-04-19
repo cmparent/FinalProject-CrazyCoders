@@ -19,6 +19,3 @@ cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER, AQI INTEGER, CO
 
 # cur.execute("SELECT * FROM airports")
 
-
-# INSERT   LIMIT 25
-# create_tables("airports")
