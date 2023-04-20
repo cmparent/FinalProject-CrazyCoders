@@ -17,7 +17,7 @@ def get_location_data(city):
 def create_airport_loc_table(cities, cur, conn):
 
     # cur.execute("DROP TABLE IF EXISTS airport_locations")
-    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, timezone TEXT NOT NULL, latitude TEXT NOT NULL)")
+    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, timezone TEXT NOT NULL, latitude TEXT NOT NULL, longitude TEXT NOT NULL)")
     
     count = 0
 
@@ -55,23 +55,17 @@ def create_airport_loc_table(cities, cur, conn):
         if type(airportdata) == list:
             airportdata = airportdata[0]
 
+        # print(airportdata)
+
         ID = first + count
+        city_name = city
+        time_zone = airportdata["timezone"]
+        lat = airportdata["latitude"]
+        long = airportdata["longitude"]
 
-        try:
-            time_zone = airportdata["timezone"]
-        except:
-            time_zone -1
-        try:
-            latitudenum = airportdata["latitude"]
-        except:
-            latitudenum = -1
-        try:
-            long = airportdata["longitude"]
-        except:
-            long = -1
+
+        cur.execute("INSERT OR IGNORE INTO airport_locations (ID, city, timezone, latitude, longitude) VALUES (?, ?, ?, ?, ?)",(ID, city_name, time_zone, lat, long))
         
-
-        cur.execute("INSERT OR IGNORE INTO airport_locations (ID, timezone, latitude) VALUES (?, ?, ?)",(ID, time_zone, latitudenum))
         count += 1
 
     conn.commit()
@@ -82,10 +76,10 @@ def main():
     conn = sqlite3.connect(path+'/airports.db')
     cur = conn.cursor()
 
-    cities = ['Detroit', 'Marseille', 'Barcelona', 'Lisbon', 'Leipzig', 'Antwerp', 'Beijing', 'Tokyo', 'Seoul', 'San Lorenzo', 'Perugia', 'Kilkenny', 'Coventry', 'Toronto', 'Warsaw', 'Stockholm', 'Perth', 'Hoorn', 'Copenhagen', 'Reykjavik', 'Dubai', 'Vienna', 'Wellington', 'Beirut', 'Nairobi', 'Lima', "Abuja", "Accra", "Addis Ababa", "Algiers", "Amman", "Ankara", "Ashgabat", "Asmara", "Astana", "Athens", "Baku", "Bamako", "Bandar Seri Begawan", "Bangui", "Banjul", "Bishkek", "Bissau", "Bogotá", "Monrovia", "Male", "Bridgetown", "Brussels", "Bucharest", "Buenos Aires", "Bujumbura", "Cairo", "Canberra", "Maracay", "Bexon", "Chisinau", "Colombo", "Conakry", "Maseru", "Dakar", "Damascus", "Dar es Salaam", "Dhaka", "Djibouti City", "Monaco", "Doha", "Dublin", "Dushanbe", "Freetown", "Funafuti", "Gaborone", "Georgetown", "Guatemala City", "Hanoi", "Harare", "Honiara", "Islamabad", "Jakarta", "Kabul", "Kampala", "Kathmandu", "Khartoum", "Kiev", "Kigali", "Kingston", "Kingstown", "Kinshasa", "Kuala Lummpur", "Kuwait City", "La Paz", "Libreville", "Lilognwe", "Pyongyang", "Lomé", "Mayen", "Longyearbyen", "Luanda", "Lusaka", "Luxembourg City", "Zagreb"]
+    cities = ['Detroit', 'Marseille', 'Barcelona', 'Lisbon', 'Leipzig', 'Antwerp', 'Beijing', 'Tokyo', 'Seoul', 'San Lorenzo', 'Perugia', 'Kilkenny', 'Coventry', 'Toronto', 'Warsaw', 'Stockholm', 'Perth', 'Hoorn', 'Copenhagen', 'Reykjavik', 'Dubai', 'Vienna', 'Wellington', 'Beirut', 'Nairobi', 'Lima', "Lagos", "Tema", "Oslo", "Oran", "Amman", "Ankara", "Ashgabat", "Asmara", "Astana", "Athens", "Baku", "Sikasso", "Seria", "Bangui", "Banjul", "Vilnius", "Encamp", "Riyadh", "Baghdad", "Male", "Douala", "Brussels", "Phnom Penh", "Buenos Aires", "Bujumbura", "Cairo", "Canberra", "Tashkent", "Belgrade", "Chisinau", "Colombo", "Conakry", "Riga", "Vilnius", "Damascus", "Tallinn", "Dhaka", "Sofia", "Yangon", "Doha", "Dublin", "Dushanbe", "Tbilisi", "Funafuti", "Gaborone", "Georgetown", "Minsk", "Maputo", "Harare", "Honiara", "Islamabad", "Surabaya", "Kabul", "Baku", "Antananarivo", "Khartoum", "Kiev", "Kigali", "Kingston", "Singapore", "Tunis", "Muscat", "Santo Domingo", "La Paz", "Skopje", "Tripoli", "Moroni", "Lome", "Mayen", "Port Vila", "Victoria", "Lusaka", "Sarajevo", "Zagreb"]
     # print(len(cities))
 
     create_airport_loc_table(cities, cur, conn)
-    "Added 25 rows to database!"
+    print("Added 25 rows to database!")
 
 main()
