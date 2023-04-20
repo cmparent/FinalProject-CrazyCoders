@@ -61,15 +61,24 @@ def create_tables(cities, cur, conn):
             airportdata = airportdata[0]
 
         ID = first + count
-        ICAO_CODE = airportdata["icao"]
-        IATA_CODE = airportdata["iata"]
-        name = airportdata["name"]
-        city_name = airportdata["city"]
+        # ICAO_CODE = airportdata["icao"]
+        # IATA_CODE = airportdata["iata"]
+        # name = airportdata["name"]
+        # city_name = airportdata["city"]
 
-        cur.execute("INSERT OR IGNORE INTO airports (ID, ICAO_CODE, IATA_CODE, name, city) VALUES (?, ?, ?, ?, ?)",(ID, ICAO_CODE, IATA_CODE, name, city_name))
+        try:
+            IATA_CODE = airportdata["iata"]
+        except:
+            IATA_CODE = -1
+        try:
+            city_name = airportdata["city"]
+        except:
+            city_name -1
+        
+
+        cur.execute("INSERT OR IGNORE INTO airports (ID, IATA_CODE, city) VALUES (?, ?, ?, ?, ?)",(ID, IATA_CODE, city_name))
 
         count += 1
-
 
     conn.commit()
 
