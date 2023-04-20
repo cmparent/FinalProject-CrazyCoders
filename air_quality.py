@@ -14,8 +14,8 @@ def get_data_air_quality(city):
     # print(data)
 
 def create_air_quality_table(cities, cur, conn):
-    
-    cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER PRIMARY KEY AUTOINCREMENT, AQI INTEGER, CO INTEGER, PM10 INTEGER, SO2 INTEGER, PM25 INTEGER, O3 INTEGER, NO2 INTEGER)")
+    cur.execute("DROP TABLE IF EXISTS air_quality")
+    cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER PRIMARY KEY, AQI INTEGER, CO INTEGER, PM10 INTEGER, SO2 INTEGER, PM25 INTEGER, O3 INTEGER, NO2 INTEGER)")
 
 
 def main():

@@ -15,11 +15,12 @@ def get_data(city):
         print("Error:", airport_response.status_code, airport_response.text)
 
 
-def create_table(cities, cur, conn):
-
-    cur.execute('CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY AUTOINCREMENT, ICAO_code INTEGER, IATA_code INTEGER, name TEXT, location_ID INTEGER, FOREIGN KEY location_ID REFERENCES airport_locations(ID))')
+def create_tables(cities, cur, conn):
+    cur.execute("DROP TABLE IF EXISTS airports")
+    cur.execute("CREATE TABLE airports (ID INTEGER PRIMARY KEY, ICAO_CODE TEXT NOT NULL, IATA_CODE TEXT NOT NULL, name TEXT NOT NULL)")
     
-    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY AUTOINCREMENT, country_ID INTEGER, weather_ID INTEGER, city TEXT, region TEXT, timezone TEXT, latitude INTEGER, longitute INTEGER, elevation INT, FOREIGN KEY country_ID REFERENCES country(ID), FOREIGN KEY weather_ID REFERENCES weather(ID))")
+    cur.execute("DROP TABLE IF EXISTS airport_locations")
+    cur.execute("CREATE TABLE airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, region TEXT NOT NULL, timezone TEXT, latitude INTEGER NOT NULL, longitute INTEGER NOT NULL, elevation INTERGER NOT NULL)")
 
 
     count = 0
@@ -29,13 +30,14 @@ def create_table(cities, cur, conn):
 def main():
 
     path = os.path.dirname(os.path.abspath(__file__))
-    conn = sqlite3.connect(path+'/'+"airports")
+    conn = sqlite3.connect(path+'/'+"airports.db")
     cur = conn.cursor()
 
     cities = ['Detroit', 'Paris', 'Barcelona', 'Lisbon', 'Berlin', 'Brussel', 'Shanghai', 'Tokyo', 'Seoul', 'Bangkok', 'Rome', 'Dublin', 'London', 'Toronto', 'Mexico City', 'Rio de Janeiro', 'Sydney', 'Amsterdam', 'Copenhagen', 'Havana', 'Dubai', 'Vienna', 'Wellington', 'Prague', 'Jerusalem', 'Lima', "Abuja", "Accra", "Addis Ababa", "Algiers", "Amman", "Ankara", "Ashgabat", "Asmara", "Astana", "Athens", "Baku", "Bamako", "Bandar Seri Begawan", "Bangui", "Banjul", "Bishkek", "Bissau", "Bogotá", "Monrovia", "Male", "Bridgetown", "Brussels", "Bucharest", "Buenos Aires", "Bujumbura", "Cairo", "Canberra", "Caracas", "Castries", "Chisinau", "Colombo", "Conarky", "Maseru", "Dakar", "Damascus", "Dar es Salaam", "Dhaka", "Djibouti City", "Monaco", "Doha", "Dublin", "Dushanbe", "Freetown", "Funafuti", "Gaborone", "Georgetown", "Guatemala City", "Hanoi", "Harare", "Honiara", "Islamabad", "Jakarta", "Kabul", "Kampala", "Kathmandu", "Khartoum", "Kiev", "Kigali", "Kingston", "Kingstown", "Kinshasa", "Kuala Lummpur", "Kuwait City", "La Paz", "Libreville", "Lilognwe", "Pyongyang", "Lomé", "Mayen", "Longyearbyen", "Luanda", "Lusaka", "Luxembourg City", "Zagreb"]
     countries = ['United States', 'France', 'Spain', 'Portugal', 'Germany', 'Belgium', 'China', 'Japan', 'South Korea', 'Thailand', 'Italy', 'Ireland', 'England', 'Canada','Mexico', 'Brazil', 'Australia', 'Netherlands', 'Denmark', 'Cuba', 'UAE', 'Austria', 'Czech Republic', 'Israel', 'Peru', 'Nigeria', 'Ghana', 'Ethiopia', 'Algeria', 'Jordan', 'Turkey', 'Turkmenistan', 'Etritrea', 'Kazakhstan', 'Greece', 'Azerbaijan', 'Mali', 'Brunei', 'Central African Republic', 'Gambia', 'Kyrgyzstan', 'Guinea-Bissau', 'Colombia', 'Liberia', 'Barbados', 'Maldives', 'Romania', 'Hungary', 'Argentina', 'Burundi', 'Egypt', 'Australia', 'Venezuela', 'Saint Lucia', 'Moldova', 'Sri Lanka', 'Guinea', 'Lesotho', 'Senegal', 'Syria', 'Tanzania', 'Bangladesh', 'Dijbouti', 'Monaco', 'Qatar', 'Ireland', 'Tajikstan', 'Sierra Leone', 'Tuvalu', 'Botswana', 'Guyana', 'Guatemala', 'Vietnam', 'Zimbabwe', 'Finland', 'Soloman Islands', 'Pakistan', 'Indonesia', 'Afghanistan', 'Uganda', 'Nepal', 'Sudan', 'Ukraine', 'Rwanda', 'Jamaica', 'Saint Vincent and the Grendadines', 'Democratic Republic of the Congo', 'Malaysia', 'Kuwait', 'Bolivia', 'Gabon', 'Malawi', 'North Korea', 'Slovenia', 'Togo', 'Svalbard and Jan Mayen', 'Angola', 'Zambia', 'Luxembourg', 'Croatia']
 
-    create_table(cities, cur, conn)
+    create_tables(cities, cur, conn)
+    # create_locations_table(cities, cur, conn)
 
 
 if __name__ == "__main__":
