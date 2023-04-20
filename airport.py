@@ -22,7 +22,7 @@ def create_airport_table(cities, cur, conn):
     count = 0
 
     first = cur.fetchone()
-    print(first)
+    # print(first)
     if (first == None):
         first = 0
     else:
