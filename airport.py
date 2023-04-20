@@ -76,7 +76,7 @@ def create_tables(cities, cur, conn):
             city_name -1
         
 
-        cur.execute("INSERT OR IGNORE INTO airports (ID, IATA_CODE, city) VALUES (?, ?, ?, ?, ?)",(ID, IATA_CODE, city_name))
+        cur.execute("INSERT OR IGNORE INTO airports (ID, IATA_CODE, city) VALUES (?, ?, ?)",(ID, IATA_CODE, city_name))
 
         count += 1
 
