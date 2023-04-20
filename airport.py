@@ -34,43 +34,43 @@ def create_tables(cities, cur, conn):
         airportdata = get_airport_data(city)
         # print("City", city, airportdata)
         # print("**********************************")
-        # if airportdata == []:
-        #     print(city)
+        if airportdata == []:
+            print(city)
+
+        if len(airportdata) > 1:
+            # print(city, airportdata, "\n")
+            if city == "Detroit":
+                airportdata = airportdata[1]
+            elif city == "Lisbon":
+                airportdata = airportdata[-1]
+            elif city == "Beijing":
+                airportdata = airportdata[0]
+            elif city == "San Lorenzo":
+                airportdata = airportdata[0]
+            elif city == "Warsaw":
+                airportdata = airportdata[0]
+            elif city == "Perth":
+                airportdata = airportdata[0]
+            elif city == "Copenhagen":
+                airportdata = airportdata[0]
+            elif city == "Wellington":
+                airportdata = airportdata[2]
+            elif city == "Stockholm":
+                airportdata = airportdata[0]
+
 
         ID = first + count
-        ICAO_CODE = airportdata['icao']
-        IATA_CODE = airportdata['iata']
-        name = airportdata['name']
-        cityname = city
+        ICAO_CODE = airportdata["icao"]
+        IATA_CODE = airportdata["iata"]
+        name = airportdata["name"]
+        city_name = airportdata["city"]
+
+        cur.execute("INSERT OR IGNORE INTO airports (ID, ICAO_CODE, IATA_CODE, name, city) VALUES (?, ?, ?, ?, ?)",(ID, ICAO_CODE, IATA_CODE, name, city_name))
+
+        count += 1
 
 
-        cur.execute("INSERT OR IGNORE INTO airports (ID, ICAO_CODE, IATA_CODE, name, city) VALUES (?, ?, ?, ?, ?)",())
-
-
-    #     country_id = first + count
-    #     countries_name = country
-
-    #     try:
-    #         aqi = airportdata['overall_aqi']
-    #     except:
-    #         aqi = -1
-
-    #     try:
-    #         ozone = airportdata['O3']['concentration'] 
-    #     except:
-    #         ozone = -1
-
-    #     cur.execute("INSERT OR IGNORE INTO air_quality (country_id,country,air_quality_index,ozone_concentration) VALUES (?,?,?,?)",(country_id,countries_name,aqi,ozone))
-
-    #     count += 1
-
-    # conn.commit()
-
-        
-
-
-
-
+    conn.commit()
 
 
 def main():
@@ -79,8 +79,8 @@ def main():
     conn = sqlite3.connect(path+'/'+"airports.db")
     cur = conn.cursor()
 
-    cities = ['Detroit', 'Paris', 'Barcelona', 'Lisbon', 'Berlin', 'Brussel', 'Shanghai', 'Tokyo', 'Seoul', 'San Lorenzo', 'Rome', 'Dublin', 'London', 'Toronto', 'Quito', 'Moscow', 'Sydney', 'Amsterdam', 'Copenhagen', 'Reykjavik', 'Dubai', 'Vienna', 'Wellington', 'Prague', 'Jerusalem', 'Lima', "Abuja", "Accra", "Addis Ababa", "Algiers", "Amman", "Ankara", "Ashgabat", "Asmara", "Astana", "Athens", "Baku", "Bamako", "Bandar Seri Begawan", "Bangui", "Banjul", "Bishkek", "Bissau", "Bogotá", "Monrovia", "Male", "Bridgetown", "Brussels", "Bucharest", "Buenos Aires", "Bujumbura", "Cairo", "Canberra", "Caracas", "Castries", "Chisinau", "Colombo", "Conarky", "Maseru", "Dakar", "Damascus", "Dar es Salaam", "Dhaka", "Djibouti City", "Monaco", "Doha", "Dublin", "Dushanbe", "Freetown", "Funafuti", "Gaborone", "Georgetown", "Guatemala City", "Hanoi", "Harare", "Honiara", "Islamabad", "Jakarta", "Kabul", "Kampala", "Kathmandu", "Khartoum", "Kiev", "Kigali", "Kingston", "Kingstown", "Kinshasa", "Kuala Lummpur", "Kuwait City", "La Paz", "Libreville", "Lilognwe", "Pyongyang", "Lomé", "Mayen", "Longyearbyen", "Luanda", "Lusaka", "Luxembourg City", "Zagreb"]
-    countries = ['United States', 'France', 'Spain', 'Portugal', 'Germany', 'Belgium', 'China', 'Japan', 'South Korea', 'Paraguay', 'Italy', 'Ireland', 'England', 'Canada','Ecuador', 'Russia', 'Australia', 'Netherlands', 'Denmark', 'Iceland', 'UAE', 'Austria', 'Czech Republic', 'Israel', 'Peru', 'Nigeria', 'Ghana', 'Ethiopia', 'Algeria', 'Jordan', 'Turkey', 'Turkmenistan', 'Etritrea', 'Kazakhstan', 'Greece', 'Azerbaijan', 'Mali', 'Brunei', 'Central African Republic', 'Gambia', 'Kyrgyzstan', 'Guinea-Bissau', 'Colombia', 'Liberia', 'Barbados', 'Maldives', 'Romania', 'Hungary', 'Argentina', 'Burundi', 'Egypt', 'Australia', 'Venezuela', 'Saint Lucia', 'Moldova', 'Sri Lanka', 'Guinea', 'Lesotho', 'Senegal', 'Syria', 'Tanzania', 'Bangladesh', 'Dijbouti', 'Monaco', 'Qatar', 'Ireland', 'Tajikstan', 'Sierra Leone', 'Tuvalu', 'Botswana', 'Guyana', 'Guatemala', 'Vietnam', 'Zimbabwe', 'Finland', 'Soloman Islands', 'Pakistan', 'Indonesia', 'Afghanistan', 'Uganda', 'Nepal', 'Sudan', 'Ukraine', 'Rwanda', 'Jamaica', 'Saint Vincent and the Grendadines', 'Democratic Republic of the Congo', 'Malaysia', 'Kuwait', 'Bolivia', 'Gabon', 'Malawi', 'North Korea', 'Slovenia', 'Togo', 'Svalbard and Jan Mayen', 'Angola', 'Zambia', 'Luxembourg', 'Croatia']
+    cities = ['Detroit', 'Marseille', 'Barcelona', 'Lisbon', 'Leipzig', 'Antwerp', 'Beijing', 'Tokyo', 'Seoul', 'San Lorenzo', 'Perugia', 'Kilkenny', 'Coventry', 'Toronto', 'Warsaw', 'Stockholm', 'Perth', 'Hoorn', 'Copenhagen', 'Reykjavik', 'Dubai', 'Vienna', 'Wellington', 'Beirut', 'Nairobi', 'Lima', "Abuja", "Accra", "Addis Ababa", "Algiers", "Amman", "Ankara", "Ashgabat", "Asmara", "Astana", "Athens", "Baku", "Bamako", "Bandar Seri Begawan", "Bangui", "Banjul", "Bishkek", "Bissau", "Bogotá", "Monrovia", "Male", "Bridgetown", "Brussels", "Bucharest", "Buenos Aires", "Bujumbura", "Cairo", "Canberra", "Caracas", "Castries", "Chisinau", "Colombo", "Conarky", "Maseru", "Dakar", "Damascus", "Dar es Salaam", "Dhaka", "Djibouti City", "Monaco", "Doha", "Dublin", "Dushanbe", "Freetown", "Funafuti", "Gaborone", "Georgetown", "Guatemala City", "Hanoi", "Harare", "Honiara", "Islamabad", "Jakarta", "Kabul", "Kampala", "Kathmandu", "Khartoum", "Kiev", "Kigali", "Kingston", "Kingstown", "Kinshasa", "Kuala Lummpur", "Kuwait City", "La Paz", "Libreville", "Lilognwe", "Pyongyang", "Lomé", "Mayen", "Longyearbyen", "Luanda", "Lusaka", "Luxembourg City", "Zagreb"]
+    countries = ['United States', 'France', 'Spain', 'Portugal', 'Germany', 'Belgium', 'China', 'Japan', 'South Korea', 'Honduras', 'Italy', 'Ireland', 'England', 'Canada','Poland', 'Sweden', 'Scotland', 'South Africa', 'Denmark', 'Iceland', 'UAE', 'Austria', 'Lebanon', 'Kenya', 'Peru', 'Nigeria', 'Ghana', 'Ethiopia', 'Algeria', 'Jordan', 'Turkey', 'Turkmenistan', 'Etritrea', 'Kazakhstan', 'Greece', 'Azerbaijan', 'Mali', 'Brunei', 'Central African Republic', 'Gambia', 'Kyrgyzstan', 'Guinea-Bissau', 'Colombia', 'Liberia', 'Barbados', 'Maldives', 'Romania', 'Hungary', 'Argentina', 'Burundi', 'Egypt', 'Australia', 'Venezuela', 'Saint Lucia', 'Moldova', 'Sri Lanka', 'Guinea', 'Lesotho', 'Senegal', 'Syria', 'Tanzania', 'Bangladesh', 'Dijbouti', 'Monaco', 'Qatar', 'Ireland', 'Tajikstan', 'Sierra Leone', 'Tuvalu', 'Botswana', 'Guyana', 'Guatemala', 'Vietnam', 'Zimbabwe', 'Finland', 'Soloman Islands', 'Pakistan', 'Indonesia', 'Afghanistan', 'Uganda', 'Nepal', 'Sudan', 'Ukraine', 'Rwanda', 'Jamaica', 'Saint Vincent and the Grendadines', 'Democratic Republic of the Congo', 'Malaysia', 'Kuwait', 'Bolivia', 'Gabon', 'Malawi', 'North Korea', 'Slovenia', 'Togo', 'Svalbard and Jan Mayen', 'Angola', 'Zambia', 'Luxembourg', 'Croatia']
 
     create_tables(cities, cur, conn)
 
