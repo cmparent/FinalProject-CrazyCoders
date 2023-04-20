@@ -13,8 +13,8 @@ def getdata(country):
 
 def createtable1(countries1, cur, conn):
     cur.execute("DROP TABLE IF EXISTS country")
-    cur.execute("CREATE TABLE IF NOT EXISTS country (ID INTEGER, gdp INTEGER, surface_area INTEGER, life_expectancy_male INTEGER, imports INTERGER, currency_name TEXT, urban_population_growth INTEGER, capital TEXT, co2_emissions INTEGER, tourists INTEGER, life_expectancy_female INTEGER, population INTEGER, urban_population INTEGER, name TEXT, pop_growth INTEGER, region INTEGER, pop_density INTEGER, refugees INTEGER)")
-    cur.execute("SELECT country_id FROM country WHERE country_id = (SELECT MAX(country_id) FROM country)")
+    cur.execute("CREATE TABLE IF NOT EXISTS country (ID INTEGER, gdp INTEGER, surface_area INTEGER, life_expectancy_male INTEGER, imports TEXT, currency_name TEXT, urban_population_growth INTEGER, capital TEXT, tourists INTEGER, life_expectancy_female INTEGER, threatened_species TEXT, population INTEGER, urban_population INTEGER, name TEXT, pop_growth INTEGER, region TEXT, pop_density INTEGER, AQI_ID INTEGER, refugees INTEGER)")
+    cur.execute("SELECT ID FROM country WHERE ID = (SELECT MAX(ID) FROM country)")
 
     countries1 = ['United States', 'France', 'Spain', 'Portugal', 'Germany', 'Belgium', 'China', 'Japan', 'South Korea', 'Honduras', 'Italy', 'Ireland', 'England', 'Canada','Poland', 'Sweden', 'Scotland', 'South Africa', 'Denmark', 'Iceland', 'UAE', 'Austria', 'Lebanon', 'Kenya', 'Peru', 'Nigeria', 'Ghana', 'Ethiopia', 'Algeria', 'Jordan', 'Turkey', 'Turkmenistan', 'Etritrea', 'Kazakhstan', 'Greece', 'Azerbaijan', 'Mali', 'Brunei', 'Central African Republic', 'Gambia', 'Kyrgyzstan', 'Guinea-Bissau', 'Colombia', 'Liberia', 'Barbados', 'Maldives', 'Romania', 'Hungary', 'Argentina', 'Burundi', 'Egypt', 'Australia', 'Venezuela', 'Saint Lucia', 'Moldova', 'Sri Lanka', 'Guinea', 'Lesotho', 'Senegal', 'Syria', 'Tanzania', 'Bangladesh', 'Dijbouti', 'Monaco', 'Qatar', 'Ireland', 'Tajikstan', 'Sierra Leone', 'Tuvalu', 'Botswana', 'Guyana', 'Guatemala', 'Vietnam', 'Zimbabwe', 'Finland', 'Soloman Islands', 'Pakistan', 'Indonesia', 'Afghanistan', 'Uganda', 'Nepal', 'Sudan', 'Ukraine', 'Rwanda', 'Jamaica', 'Saint Vincent and the Grendadines', 'Democratic Republic of the Congo', 'Malaysia', 'Kuwait', 'Bolivia', 'Gabon', 'Malawi', 'North Korea', 'Slovenia', 'Togo', 'Svalbard and Jan Mayen', 'Angola', 'Zambia', 'Luxembourg', 'Croatia']
     print(len(countries1))
@@ -130,7 +130,7 @@ def createtable1(countries1, cur, conn):
         # country_AQIID = countrydata[0]['AQI_ID']
         # country_refugees = countrydata[0]['refugees']
 
-        cur.execute("INSERT OR IGNORE INTO country (gdp, surface_area, life_expectancy_male, imports, currency_name, urban_population_growth, capital, tourists, life_expectancy_female, threatened_species, population, urban_population, name, pop_growth, region, pop_density, AQI_ID, refugees) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(country_id, country_gdp, country_SA, country_LEM, country_imports, country_currencyname, country_UPG, country_capital, country_tourists, country_LEF, country_TS, country_pop, country_UP, country_name, country_popgrowth, country_region, country_popdensity, country_AQIID, country_refugees))
+        cur.execute("INSERT OR IGNORE INTO country (id, gdp, surface_area, life_expectancy_male, imports, currency_name, urban_population_growth, capital, tourists, life_expectancy_female, threatened_species, population, urban_population, name, pop_growth, region, pop_density, AQI_ID, refugees) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(country_id, country_gdp, country_SA, country_LEM, country_imports, country_currencyname, country_UPG, country_capital, country_tourists, country_LEF, country_TS, country_pop, country_UP, country_name, country_popgrowth, country_region, country_popdensity, country_AQIID, country_refugees))
 
         count1 += 1
 
@@ -145,6 +145,7 @@ def main():
     countries1 = ['United States', 'France', 'Spain', 'Portugal', 'Germany', 'Belgium', 'China', 'Japan', 'South Korea', 'Honduras', 'Italy', 'Ireland', 'England', 'Canada','Poland', 'Sweden', 'Scotland', 'South Africa', 'Denmark', 'Iceland', 'UAE', 'Austria', 'Lebanon', 'Kenya', 'Peru', 'Nigeria', 'Ghana', 'Ethiopia', 'Algeria', 'Jordan', 'Turkey', 'Turkmenistan', 'Etritrea', 'Kazakhstan', 'Greece', 'Azerbaijan', 'Mali', 'Brunei', 'Central African Republic', 'Gambia', 'Kyrgyzstan', 'Guinea-Bissau', 'Colombia', 'Liberia', 'Barbados', 'Maldives', 'Romania', 'Hungary', 'Argentina', 'Burundi', 'Egypt', 'Australia', 'Venezuela', 'Saint Lucia', 'Moldova', 'Sri Lanka', 'Guinea', 'Lesotho', 'Senegal', 'Syria', 'Tanzania', 'Bangladesh', 'Dijbouti', 'Monaco', 'Qatar', 'Ireland', 'Tajikstan', 'Sierra Leone', 'Tuvalu', 'Botswana', 'Guyana', 'Guatemala', 'Vietnam', 'Zimbabwe', 'Finland', 'Soloman Islands', 'Pakistan', 'Indonesia', 'Afghanistan', 'Uganda', 'Nepal', 'Sudan', 'Ukraine', 'Rwanda', 'Jamaica', 'Saint Vincent and the Grendadines', 'Democratic Republic of the Congo', 'Malaysia', 'Kuwait', 'Bolivia', 'Gabon', 'Malawi', 'North Korea', 'Slovenia', 'Togo', 'Svalbard and Jan Mayen', 'Angola', 'Zambia', 'Luxembourg', 'Croatia']
 
     createtable1(countries1, cur, conn)
+    "Added 25 rows to database!"
 
 if __name__ == "__main__":
     main()
