@@ -4,22 +4,23 @@ import json
 import os
 import requests
 
-def get_data(city):
+def get_airport_data(city):
 
     airport_url = 'https://api.api-ninjas.com/v1/airports?name={}'.format(city)
     airport_response = requests.get(airport_url, headers = {'X-Api-Key': 'UlC4xXn/1yAqzYBvCS/Wkg==EJ2pSOpCn3TEU3iQ'})
-    
-    if airport_response.status_code == requests.codes.ok:
-        print(airport_response.text)
-    else:
-        print("Error:", airport_response.status_code, airport_response.text)
+    airport_data = json.loads(airport_response.text)
+
+    return airport_data
 
 
-def create_table(cities, cur, conn):
 
-    cur.execute('CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY AUTOINCREMENT, ICAO_code INTEGER, IATA_code INTEGER, name TEXT, location_ID INTEGER, FOREIGN KEY location_ID REFERENCES airport_locations(ID))')
 
-    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY AUTOINCREMENT, country_ID INTEGER, weather_ID INTEGER, city TEXT, region TEXT, timezone TEXT, latitude INTEGER, longitute INTEGER, elevation INT, FOREIGN KEY country_ID REFERENCES country(ID), FOREIGN KEY weather_ID REFERENCES weather(ID))")
+    # if airport_response.status_code == requests.codes.ok:
+    #     print(airport_response.text)
+    # else:
+    #     print("Error:", airport_response.status_code, airport_response.text)
+
+
 def create_tables(cities, cur, conn):
     cur.execute("DROP TABLE IF EXISTS airports")
     cur.execute("CREATE TABLE airports (ID INTEGER PRIMARY KEY, ICAO_CODE TEXT NOT NULL, IATA_CODE TEXT NOT NULL, name TEXT NOT NULL)")
@@ -29,6 +30,8 @@ def create_tables(cities, cur, conn):
 
 
     count = 0
+
+
 
 
 
