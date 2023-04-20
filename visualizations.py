@@ -28,3 +28,9 @@ def avg_co_emissions(cur):
 
     cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID WHERE c.population < 10000")
     data = cur.fetchall()
+
+    avg_co = []
+    countries = []
+
+    
+
