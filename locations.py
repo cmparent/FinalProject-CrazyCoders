@@ -28,7 +28,8 @@ def create_airport_loc_table(cities, cur, conn):
     else:
         first = first[0] + 1
     
-    for city in cities[first: first+25]:
+    for city in cities[first:first+25]:
+        # print(city)
         airportdata = get_location_data(city)
 
         if len(airportdata) > 1:
@@ -47,15 +48,13 @@ def create_airport_loc_table(cities, cur, conn):
                 airportdata = airportdata[0]
             elif city == "Copenhagen":
                 airportdata = airportdata[0]
-            elif city == "Wellington":
-                airportdata = airportdata[2]
-            elif city == "Stockholm":
-                airportdata = airportdata[0]
+        #     elif city == "Wellington":
+        #         airportdata = airportdata[2]
+        #     elif city == "Stockholm":
+        #         airportdata = airportdata[0]
 
         if type(airportdata) == list:
             airportdata = airportdata[0]
-
-        # print(airportdata)
 
         ID = first + count
         city_name = city
@@ -63,6 +62,7 @@ def create_airport_loc_table(cities, cur, conn):
         lat = airportdata["latitude"]
         long = airportdata["longitude"]
 
+        # print(ID, city_name, time_zone, lat, long)
 
         cur.execute("INSERT OR IGNORE INTO airport_locations (ID, city, timezone, latitude, longitude) VALUES (?, ?, ?, ?, ?)",(ID, city_name, time_zone, lat, long))
         
