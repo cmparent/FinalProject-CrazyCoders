@@ -15,17 +15,17 @@ def get_airport_data(city):
 
 
 def create_tables(cities, cur, conn):
-    cur.execute("DROP TABLE IF EXISTS airports")
-    cur.execute("CREATE TABLE airports (ID INTEGER PRIMARY KEY, ICAO_CODE TEXT NOT NULL, IATA_CODE TEXT NOT NULL, name TEXT NOT NULL, city TEXT NOT NULL)")
+    # cur.execute("DROP TABLE IF EXISTS airports")
+    cur.execute("CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY, ICAO_CODE TEXT NOT NULL, IATA_CODE TEXT NOT NULL, name TEXT NOT NULL, city TEXT NOT NULL)")
     
-    cur.execute("DROP TABLE IF EXISTS airport_locations")
-    cur.execute("CREATE TABLE airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, region TEXT NOT NULL, timezone TEXT, latitude INTEGER NOT NULL, longitute INTEGER NOT NULL, elevation INTERGER NOT NULL)")
+    # cur.execute("DROP TABLE IF EXISTS airport_locations")
+    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, region TEXT NOT NULL, timezone TEXT, latitude INTEGER NOT NULL, longitute INTEGER NOT NULL, elevation INTERGER NOT NULL)")
     
     count = 0
 
     first = cur.fetchone()
 
-    if first == None:
+    if (first == None):
         first = 0
     else:
         first = first[0] + 1
@@ -85,6 +85,7 @@ def main():
     countries = ['United States', 'France', 'Spain', 'Portugal', 'Germany', 'Belgium', 'China', 'Japan', 'South Korea', 'Honduras', 'Italy', 'Ireland', 'England', 'Canada','Poland', 'Sweden', 'Scotland', 'South Africa', 'Denmark', 'Iceland', 'UAE', 'Austria', 'Lebanon', 'Kenya', 'Peru', 'Nigeria', 'Ghana', 'Ethiopia', 'Algeria', 'Jordan', 'Turkey', 'Turkmenistan', 'Etritrea', 'Kazakhstan', 'Greece', 'Azerbaijan', 'Mali', 'Brunei', 'Central African Republic', 'Gambia', 'Kyrgyzstan', 'Guinea-Bissau', 'Colombia', 'Liberia', 'Barbados', 'Maldives', 'Romania', 'Hungary', 'Argentina', 'Burundi', 'Egypt', 'Australia', 'Venezuela', 'Saint Lucia', 'Moldova', 'Sri Lanka', 'Guinea', 'Lesotho', 'Senegal', 'Syria', 'Tanzania', 'Bangladesh', 'Dijbouti', 'Monaco', 'Qatar', 'Ireland', 'Tajikstan', 'Sierra Leone', 'Tuvalu', 'Botswana', 'Guyana', 'Guatemala', 'Vietnam', 'Zimbabwe', 'Finland', 'Soloman Islands', 'Pakistan', 'Indonesia', 'Afghanistan', 'Uganda', 'Nepal', 'Sudan', 'Ukraine', 'Rwanda', 'Jamaica', 'Saint Vincent and the Grendadines', 'Democratic Republic of the Congo', 'Malaysia', 'Kuwait', 'Bolivia', 'Gabon', 'Malawi', 'North Korea', 'Slovenia', 'Togo', 'Svalbard and Jan Mayen', 'Angola', 'Zambia', 'Luxembourg', 'Croatia']
 
     create_tables(cities, cur, conn)
+    print("added 25 rows to database")
 
 
 if __name__ == "__main__":
