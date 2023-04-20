@@ -79,7 +79,7 @@ def create_airport_table(cities, cur, conn):
 def create_airport_loc_table(cities, cur, conn):
 
     cur.execute("DROP TABLE IF EXISTS airport_locations")
-    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, region TEXT NOT NULL)")
+    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, timezone TEXT NOT NULL, latitude TEXT NOT NULL)")
     
     count = 0
 
@@ -120,16 +120,16 @@ def create_airport_loc_table(cities, cur, conn):
         ID = first + count
 
         try:
-            city_name = airportdata["city"]
+            time_zone = airportdata["timezone"]
         except:
-            city_name -1
+            time_zone -1
         try:
-            region_name = airportdata["region"]
+            latitudenum = airportdata["latitude"]
         except:
-            region_name = -1
+            latitudenum = -1
         
 
-        cur.execute("INSERT OR IGNORE INTO airport_locations (ID, city, region) VALUES (?, ?, ?)",(ID, city_name, region_name))
+        cur.execute("INSERT OR IGNORE INTO airport_locations (ID, timezone, latitude) VALUES (?, ?, ?)",(ID, time_zone, latitudenum))
         count += 1
 
     conn.commit()
@@ -148,7 +148,7 @@ def main():
 
     create_airport_table(cities, cur, conn)
     create_airport_loc_table(cities, cur, conn)
-    
+
     print("Added 25 rows to database!")
 
 
