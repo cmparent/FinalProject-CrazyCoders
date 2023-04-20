@@ -9,14 +9,12 @@ def get_data_air_quality(country):
 
     api_url = 'https://api.api-ninjas.com/v1/airquality?city={}'.format(country)
     response = requests.get(api_url, headers = {'X-Api-Key': 'ClqOtbxYh1QnlxYsIcDbWQ==6wVFffdvVGFwF4OI'})
-
-    response = requests.get(api_url, headers = {'X-Api-Key': 'ClqOtbxYh1QnlxYsIcDbWQ==6wVFffdvVGFwF4OI'})
     data = json.loads(response.text)
 
     return data
 
 def create_air_quality_table(cities, cur, conn):
-    cur.execute("DROP TABLE IF EXISTS air_quality")
+    # cur.execute("DROP TABLE IF EXISTS air_quality")
     cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER PRIMARY KEY, city TEXT, AQI INTEGER, CO INTEGER)")
     cur.execute("SELECT ID FROM air_quality WHERE ID = (SELECT MAX(ID) FROM air_quality)")
 
@@ -61,6 +59,6 @@ def main():
     # print(len(cities))
 
     create_air_quality_table(cities, cur, conn)
-
+    "Added 25 rows to database!"
 
 main()
