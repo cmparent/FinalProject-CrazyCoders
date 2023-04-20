@@ -14,39 +14,39 @@ def get_data_air_quality(country):
     return data
 
 def create_air_quality_table(cities, cur, conn):
-    cur.execute("DROP TABLE IF EXISTS air_quality")
+    # cur.execute("DROP TABLE IF EXISTS air_quality")
     cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER PRIMARY KEY, city TEXT, AQI INTEGER, CO INTEGER)")
     cur.execute("SELECT ID FROM air_quality WHERE ID = (SELECT MAX(ID) FROM air_quality)")
 
     count = 0
 
     first = cur.fetchone()
-    if first == None:
+    if (first == None):
         first = 0
     else:
         first = first[0] + 1
 
     for city in cities[first:first + 25]:
         air_data = get_data_air_quality(city)
-        # print(air_data)
+        print(air_data)
 
-        ID = first + count
-        city_name = city
+        # ID = first + count
+        # city_name = city
 
-        try:
-            AQI = air_data["overall_aqi"]
-        except:
-            AQI = -1
-        try: 
-            carbon_monoxide = air_data["CO"]["concentration"]
-        except:
-            carbon_monoxide = -1
+        # try:
+        #     AQI = air_data["overall_aqi"]
+        # except:
+        #     AQI = -1
+        # try: 
+        #     carbon_monoxide = air_data["CO"]["concentration"]
+        # except:
+        #     carbon_monoxide = -1
 
-        cur.execute("INSERT OR IGNORE INTO air_quality (ID, city, AQI, CO) VALUES (?, ?, ?, ?)",(ID, city_name, AQI, carbon_monoxide))
+        # cur.execute("INSERT OR IGNORE INTO air_quality (ID, city, AQI, CO) VALUES (?, ?, ?, ?)",(ID, city_name, AQI, carbon_monoxide))
 
-        count += 1
+    #     count += 1
 
-    conn.commit()
+    # conn.commit()
 
 
 def main():
