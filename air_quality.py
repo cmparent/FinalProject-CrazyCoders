@@ -44,31 +44,6 @@ def create_air_quality_table(cities, cur, conn):
         except:
             carbon_monoxide = -1
 
-        # if "CO" in air_data:
-        #     print(air_data["CO"], " **** ", country)
-        # else:
-        #     print(country)
-        # # print(air_data.keys())
-        # if "error" in air_data.keys():
-        #     print(country, "error")
-        # if "message" in air_data.keys():
-        #     print(country, "message error")
-        # if air_data == {}:
-        #     print(air_data)
-        # print(air_data)
-        # if "message" not in air_data.keys() or "error" not in air_data.keys() or air_data != {}:
-            # carbon_monoxide = air_data["CO"].get("concentration", -1)
-     
-        # print(air_data.keys())
-        # carbon_monoxide = air_data["CO"].get("concentration", -1)
-        # PM10 = air_data["PM10"]["concentration"]
-        # if "SO2" in air_data:
-        #     air.dat
-        # SO2 = air_data.get("SO2", -1)
-        # PM25 = air_data["PM2.5"]["concentration"]
-        # O3 = air_data["O3"]["concentration"]
-        # NO2 = air_data["NO2"]["concentration"]
-# 
         cur.execute("INSERT OR IGNORE INTO air_quality (ID, city, AQI, CO) VALUES (?, ?, ?, ?)",(ID, city_name, AQI, carbon_monoxide))
 
         count += 1
