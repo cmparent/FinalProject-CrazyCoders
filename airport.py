@@ -16,8 +16,6 @@ def create_airport_table(cities, cur, conn):
     
     cur.execute("DROP TABLE IF EXISTS airports")
     cur.execute("CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY, IATA_CODE TEXT NOT NULL, city TEXT NOT NULL)")
-
-    # cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, region TEXT NOT NULL, timezone TEXT, latitude INTEGER NOT NULL, longitute INTEGER NOT NULL, elevation INTERGER NOT NULL)")
     
     count = 0
 
@@ -84,7 +82,7 @@ def create_airport_loc_table(cities, cur, conn):
     count = 0
 
     first = cur.fetchone()
-    print(first)
+    # print(first)
     if (first == None):
         first = 0
     else:
