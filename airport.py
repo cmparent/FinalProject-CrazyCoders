@@ -70,17 +70,8 @@ def create_tables(cities, cur, conn):
 
         count += 1
 
-        
+
     conn.commit()
-
-
-        
-
-        
-
-
-
-
 
 
 def main():
