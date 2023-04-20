@@ -12,13 +12,11 @@ def get_airport_data(city):
 
     return airport_data
 
-
-
 def create_tables(cities, cur, conn):
-    # cur.execute("DROP TABLE IF EXISTS airports")
-    cur.execute("CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY, IATA_CODE TEXT NOT NULL, city TEXT NOT NULL)")
     
-    # cur.execute("DROP TABLE IF EXISTS airport_locations")
+    cur.execute("DROP TABLE IF EXISTS airports")
+    cur.execute("CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY, IATA_CODE TEXT NOT NULL, city TEXT NOT NULL)")
+
     cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, region TEXT NOT NULL, timezone TEXT, latitude INTEGER NOT NULL, longitute INTEGER NOT NULL, elevation INTERGER NOT NULL)")
     
     count = 0
@@ -61,10 +59,6 @@ def create_tables(cities, cur, conn):
             airportdata = airportdata[0]
 
         ID = first + count
-        # ICAO_CODE = airportdata["icao"]
-        # IATA_CODE = airportdata["iata"]
-        # name = airportdata["name"]
-        # city_name = airportdata["city"]
 
         try:
             IATA_CODE = airportdata["iata"]
