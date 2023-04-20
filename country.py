@@ -13,6 +13,11 @@ def getdata(country):
         print("Error:", response1.status_code, response1.text)
 
 
+<<<<<<< HEAD
+=======
+def createtable1(countries, cur, conn):
+    cur.execute("CREATE TABLE IF NOT EXISTS country (ID INTEGER PRIMARY KEY AUTOINCREMENT, gdp INTEGER, surface_area INTEGER, life_expectancy_male INTEGER, imports INTERGER, currency_name TEXT, urban_population_growth INTEGER, capital TEXT, tourists INTEGER, life_expectancy_female INTEGER, population INTEGER, urban_population INTEGER, name TEXT, pop_growth INTEGER, region INTEGER, pop_density INTEGER, refugees INTEGER, AQI_ID INTEGER, FOREIGN KEY AQI_ID REFERENCES air_quality(ID))")
+>>>>>>> ca49636a2a326c2fb0aec1be0cd2379290ef776b
 
 
 def createtable1(countries, cur, conn):
