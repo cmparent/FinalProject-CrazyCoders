@@ -119,7 +119,7 @@ def avg_tourists(cur):
 
     f.close()
         
-# bar chart comparing all the elevations
+# bar chart comparing all the elevation levels (EXTRA CREDIT)
     
     x = ["Low", "Medium", "High"]
     y = [low_elevation, medium_elevation, high_elevation]
@@ -131,9 +131,9 @@ def avg_tourists(cur):
     plt.show()
 
     with open('avg_tourists_elevation_levels.txt', 'w') as f:
-        f.write("The average number of tourists is " + str(low_elevation) + " in countries with low elevation.\n")
-        f.write("The average number of tourists is " + str(medium_elevation) + " in countries with medium elevation.\n")
-        f.write("The average number of tourists is " + str(high_elevation) + " in countries with high elevation.")
+        f.write("The average number of tourists in countries with low elevation is " + str(low_elevation) + ".\n")
+        f.write("The average number of tourists in countries with medium elevation is " + str(medium_elevation) + ".\n")
+        f.write("The average number of tourists in countries with high elevation is " + str(high_elevation) + ".")
 
     f.close()
         
