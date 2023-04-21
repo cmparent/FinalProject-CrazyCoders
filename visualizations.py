@@ -111,8 +111,8 @@ def avg_tourists(cur):
     x = ["Low", "Medium", "High"]
     y = [low_elevation, medium_elevation, high_elevation]
 
-    plt.bar(x, y, color = "purple")
-    plt.xlabel('Elevation Level (ft)')
+    plt.bar(x, y, color = "palegreen")
+    plt.xlabel('Elevation Level')
     plt.ylabel('Average Number of Tourists')
     plt.title('Elevation Level vs. Average Number of Tourists')
     plt.show()
@@ -178,7 +178,7 @@ def avg_AQI(cur):
     x = ["Good", "Moderate", "Unhealthy for Some", "Unhealthy for All"]
     y = [good_avg, mod_avg, unhealthy_s_avg, unhealthy_total_avg]
 
-    plt.bar(x, y, color = "red")
+    plt.bar(x, y, color = "paleturquoise")
     plt.xlabel('AQI (Air Quality Index) Category')
     plt.ylabel('Average Population Size of Country (in 100 millions)')
     plt.title('AQI vs. Average Country Population Size')
