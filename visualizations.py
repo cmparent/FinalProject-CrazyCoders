@@ -4,7 +4,7 @@ import json
 import os
 import requests
 import matplotlib
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 # 1st calculation - average number of refugees in each country based on the airport's timezone
 
@@ -12,7 +12,6 @@ def avg_lat_long(cur):
 
     cur.execute("SELECT l.timezone, AVG(c.refugees) FROM airport_locations l JOIN country c ON l.ID = c.ID GROUP BY l.timezone")
     data = cur.fetchall()
-
 
 
     # for country in data:
@@ -33,6 +32,9 @@ def avg_tourists(cur):
         elevations.append(country[1])
         num_tourists.append(country[0])
 
+    # print(elevations)
+    # print(num_tourists)
+
     plt.scatter(num_tourists, elevations)
     plt.xlabel("Number of Tourists (more than 200) per Country")
     plt.ylabel("Country Elevation (ft)")
@@ -52,4 +54,14 @@ def avg_co_emissions(cur):
     countries = []
 
     
+def main():
+
+    path = os.path.dirname(os.path.abspath(__file__))
+    conn = sqlite3.connect(path+'/'+"airports.db")
+    cur = conn.cursor()
+
+    avg_tourists(cur)
+
+main()
+
 
