@@ -14,8 +14,8 @@ def get_airport_data(city):
     return airport_data
 
 def create_airport_table(cities, cur, conn):
-
-    cur.execute("CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY, IATA_CODE TEXT NOT NULL, city TEXT NOT NULL)")
+    # cur.execute("DROP TABLE IF EXISTS airports")
+    cur.execute("CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY, city_ID INT NOT NULL, IATA_CODE TEXT NOT NULL, airport_name TEXT NOT NULL)")
     cur.execute("SELECT ID FROM airports WHERE ID = (SELECT MAX(ID) FROM airports)")
 
     count = 0
@@ -31,8 +31,8 @@ def create_airport_table(cities, cur, conn):
         airportdata = get_airport_data(city)
         # print(airportdata)
 
-        if airportdata == []:
-            print(city, airportdata)
+        # if airportdata == []:
+        #     print(city, airportdata)
 
         if len(airportdata) > 1:
             # print(city, airportdata, "\n")
@@ -66,12 +66,13 @@ def create_airport_table(cities, cur, conn):
         except:
             IATA_CODE = -1
         try:
-            city_name = airportdata["city"]
+            airport_name = airportdata["name"]
         except:
-            city_name -1
+            airport_name = -1
+        
         
 
-        cur.execute("INSERT OR IGNORE INTO airports (ID, IATA_CODE, city) VALUES (?, ?, ?)",(ID, IATA_CODE, city_name))
+        cur.execute("INSERT OR IGNORE INTO airports (ID, IATA_CODE, city_ID, airport_name) VALUES (?, ?, ?, ?)",(ID, IATA_CODE, ID, airport_name))
 
         count += 1
 
