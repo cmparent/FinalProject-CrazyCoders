@@ -114,8 +114,8 @@ def avg_tourists(cur):
 
     with open('average_tourists_elevation.txt', 'w') as f:
         f.write("In countries where the elevation is above 1,000 ft, the average number of tourists is " + str(high_elevation) + ".\n")
-        f.write("In countries where the elevation is in between 200 and 999 ft, the average number of tourists is " + str(medium_elevation) + ".\n")
-        f.write("In countries where the elevation is below 199 ft, the average number of tourists is " + str(low_elevation) + ".")
+        f.write("In countries where the elevation is in between 200 and 1000 ft, the average number of tourists is " + str(medium_elevation) + ".\n")
+        f.write("In countries where the elevation is below 200 ft, the average number of tourists is " + str(low_elevation) + ".")
 
     f.close()
         
