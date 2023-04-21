@@ -3,7 +3,7 @@ import sqlite3
 import json
 import os
 import requests
-# import matplotlib
+import matplotlib
 import matplotlib.pyplot as plt
 
 # 1st calculation - average number of refugees in each country based on the airport's timezone
@@ -17,7 +17,8 @@ def avg_lat_long(cur):
     # for country in data:
         
 # 2nd calculation - number of tourists more than 200 vs elevation (scatterplot)
-#reasoning: tourists wanna go to places with higher elevations/mountains maybe??
+# reasoning: tourists wanna go to places with higher elevations/mountains maybe??
+# low elevation = 0-199, medium elevation: 200-999, high elevation: 1,000+
 
 def avg_tourists(cur):
 
@@ -41,20 +42,23 @@ def avg_tourists(cur):
     plt.title('Number of Tourists per Country vs. Country Elevation (ft)')
     plt.show()
 
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 9000  GROUP BY l.elevation") 
-    over_9k = cur.fetchall()
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
+    high_elevation = cur.fetchall()
 
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation < 1000  GROUP BY l.elevation") 
-    under_1k = cur.fetchall()
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
+    medium_elevation = cur.fetchall()
 
-    with open('average_tourists_elevation.txt', 'w') as a:
-        a.write("The average number of tourists where the elevation is greater than 9,000 feet is " + str(over_9k[0][0]) + ".\n")
-        a.write("The average number of tourists where the elevation is less than 1,000 feet is " + str(under_1k[0][0]) + ".\n")
-        a.write()
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200  GROUP BY l.elevation") 
+    low_elevation = cur.fetchall()
+
+    with open('average_tourists_elevation.txt', 'w') as f:
+        f.write("The average number of tourists where the elevation is high (greater than 1,000 feet) is " + str(high_elevation[0][0]) + ".\n")
+        f.write("The average number of tourists where the elevation is medium (greater than 200, less than 1,000 feet) is " + str(medium_elevation[0][0]) + ".\n")
+        f.write("The average number of tourists where the elevation is low (200 or lower) is" + str(low_elevation[0][0]) + ".\n")
+
+    f.close()
         
-        
-
-
+    
 # 3rd calculation - average CO emissions in countries where population is less than 10,000
 
 def avg_co_emissions(cur):
