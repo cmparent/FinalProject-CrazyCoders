@@ -29,31 +29,22 @@ def avg_lat_long(cur):
         elif "Africa" in country[0]:
             africa_timezones.append(country)
 
-
     avg_refugees_timezone = []
 
     for country in data:
         avg_refugees_timezone.append(country[1])
     
+    avg_refugees_timezone.sort()
+    
     x = avg_refugees_timezone
     y = ["Africa/Bujumbura", "Africa/Conakry", "Africa/Johannesburg", "Africa/Khartoum", "Africa/Maputo", "Africa/Nairobi", "America/Chicago", "America/New_York", "America/Tegucigalpa", "Asia/Baghdad", "Asia/Beirut", "Asia/Dushanbe", "Asia/Kabul", "Asia/Karachi", "Asia/Kolkata", "Asia/Riyadh", "Asia/Shanghai", "Asia/Tashkent", "Europe/Berlin", "Europe/Kiev", "Europe/Paris", "Europe/Rome", "Europe/Sofia", "Europe/Stockholm", "Europe/Tallinn", "Europe/Vilnius"]
-    plt.barh(y, x)
+    plt.barh(y, x, color = "pink")
+    plt.xlabel("Average Number of Refugees per Time Zone")
+    plt.ylabel("Time Zone of Country")
+    plt.title('Average # of Refugees per Country vs. Time Zone of Country)')
     plt.show()
     
 
-
-
-
-    # print(avg_refugees_timezone)
-
-
-
-
-
-
-
-
-    # x = ["]
 
         
 # 2nd visualization - number of tourists more than 200 vs elevation (scatterplot)
