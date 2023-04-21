@@ -48,9 +48,13 @@ def avg_tourists(cur):
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
     medium_elevation = cur.fetchall()
 
-    with open('average_tourists_elevation.txt', 'w') as a:
-        a.write("The average number of tourists where the elevation is greater than 9,000 feet is " + str(over_9k[0]) + ".")
-        a.write("The average number of tourists where the elevation is less than 1,000 feet is " + str(under_1k[0]) + ".")
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 
+    low_elevation = cur.fetchall()
+
+    with open('average_tourists_elevation.txt', 'w') as f:
+        f.write("The average number of tourists where the elevation is high is " + str(high_elevation[0][0]) + ".\n")
+        f.write("The average number of tourists where the elevation is medium is " + str(medium_elevation[0][0]) + ".\n")
+        f.write("The average number of tourists where the elevation is low is " + str(low_elevation[0][0]) + ".")
         
         
 
