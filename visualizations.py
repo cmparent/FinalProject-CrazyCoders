@@ -3,7 +3,7 @@ import sqlite3
 import json
 import os
 import requests
-import matplotlib
+# import matplotlib
 import matplotlib.pyplot as plt
 
 # 1st calculation - average number of refugees in each country based on the airport's timezone
@@ -39,13 +39,7 @@ def avg_tourists(cur):
     plt.xlabel("Number of Tourists (more than 200) per Country")
     plt.ylabel("Country Elevation (ft)")
     plt.title('Number of Tourists per Country vs. Country Elevation (ft)')
-    plt.show()
-
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 9000  GROUP BY l.elevation") 
-    over_9k = cur.fetchall()
-
-    with open('average_tourists_elevation.txt', 'w') as a:
-        a.write("The average number of tourists where the elevation is greater than 9,000 feet is " + str(over_9k)+".")
+    # plt.show()
         
         
 
@@ -74,6 +68,7 @@ def main():
     cur = conn.cursor()
 
     avg_tourists(cur)
+    avg_co_emissions(cur)
 
 main()
 
