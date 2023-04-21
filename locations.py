@@ -4,7 +4,6 @@ import json
 import os
 import requests
 
-
 def get_location_data(city):
 
     airport_url = 'https://api.api-ninjas.com/v1/airports?name={}'.format(city)
@@ -12,7 +11,6 @@ def get_location_data(city):
     airport_data = json.loads(airport_response.text)
 
     return airport_data
-
 
 def create_airport_loc_table(cities, cur, conn):
 
@@ -56,16 +54,12 @@ def create_airport_loc_table(cities, cur, conn):
         if type(airportdata) == list:
             airportdata = airportdata[0]
 
-        # print(airportdata)
-
         ID = first + count
         city_name = city
         time_zone = airportdata["timezone"]
         lat = airportdata["latitude"]
         long = airportdata["longitude"]
         elevation = airportdata["elevation_ft"]
-
-        # print(ID, city_name, time_zone, lat, long)
 
         cur.execute("INSERT OR IGNORE INTO airport_locations (ID, city, timezone, latitude, longitude, elevation) VALUES (?, ?, ?, ?, ?, ?)",(ID, city_name, time_zone, lat, long, elevation))
         

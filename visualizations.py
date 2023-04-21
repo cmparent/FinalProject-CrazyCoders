@@ -69,7 +69,6 @@ def avg_timezones(cur):
 
     f.close()
 
-        
 # 2nd visualization - number of tourists more than 200 vs elevation (scatterplot)
 # Elevation categories: low elevation = 0-199, medium elevation: 200-999, high elevation: 1,000+
 
@@ -93,14 +92,12 @@ def avg_tourists(cur):
     plt.show()
 
 
-
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
     high_data = cur.fetchall()
     total = 0
     for country in high_data:
         total += country[0]
     high_elevation = round(total/len(high_data))
-
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
     med_data = cur.fetchall()
@@ -109,14 +106,12 @@ def avg_tourists(cur):
         total += country[0]
     medium_elevation = round(total/len(med_data))
 
-
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 
     low_data = cur.fetchall()
     total = 0
     for country in low_data:
         total += country[0]
     low_elevation = round(total/len(low_data))
-
 
     with open('average_tourists_elevation.txt', 'w') as f:
         f.write("In countries where the elevation is high, the average number of tourists is " + str(high_elevation) + ".\n")
@@ -125,7 +120,6 @@ def avg_tourists(cur):
 
     f.close()
         
-
 # bar chart comparing all the elevations
     
     x = ["Low", "Medium", "High"]

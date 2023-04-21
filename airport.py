@@ -77,69 +77,6 @@ def create_airport_table(cities, cur, conn):
 
     conn.commit()
 
-# def create_airport_loc_table(cities, cur, conn):
-
-#     # cur.execute("DROP TABLE IF EXISTS airport_locations")
-#     cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, timezone TEXT NOT NULL, latitude TEXT NOT NULL)")
-    
-#     count = 0
-
-#     first = cur.fetchone()
-#     # print(first)
-#     if (first == None):
-#         first = 0
-#     else:
-#         first = first[0] + 1
-    
-#     for city in cities[first: first+25]:
-#         airportdata = get_airport_data(city)
-
-#         if len(airportdata) > 1:
-#             # print(city, airportdata, "\n")
-#             if city == "Detroit":
-#                 airportdata = airportdata[1]
-#             elif city == "Lisbon":
-#                 airportdata = airportdata[-1]
-#             elif city == "Beijing":
-#                 airportdata = airportdata[0]
-#             elif city == "San Lorenzo":
-#                 airportdata = airportdata[0]
-#             elif city == "Warsaw":
-#                 airportdata = airportdata[0]
-#             elif city == "Perth":
-#                 airportdata = airportdata[0]
-#             elif city == "Copenhagen":
-#                 airportdata = airportdata[0]
-#             elif city == "Wellington":
-#                 airportdata = airportdata[2]
-#             elif city == "Stockholm":
-#                 airportdata = airportdata[0]
-
-#         if type(airportdata) == list:
-#             airportdata = airportdata[0]
-
-#         ID = first + count
-
-#         try:
-#             time_zone = airportdata["timezone"]
-#         except:
-#             time_zone -1
-#         try:
-#             latitudenum = airportdata["latitude"]
-#         except:
-#             latitudenum = -1
-#         try:
-#             long = airportdata["longitude"]
-#         except:
-#             long = -1
-        
-
-#         cur.execute("INSERT OR IGNORE INTO airport_locations (ID, timezone, latitude) VALUES (?, ?, ?)",(ID, time_zone, latitudenum))
-#         count += 1
-
-#     conn.commit()
-
-
 
 def main():
 

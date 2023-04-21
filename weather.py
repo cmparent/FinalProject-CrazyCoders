@@ -4,7 +4,6 @@ import os
 import sqlite3
 import requests
 
-
 def get_data_weather(city):
     api_url = 'https://api.api-ninjas.com/v1/weather?city={}'.format(city)
     response = requests.get(api_url, headers={'X-Api-Key': 'ClqOtbxYh1QnlxYsIcDbWQ==6wVFffdvVGFwF4OI'})
@@ -81,7 +80,6 @@ def create_weather_table(cities, cur, conn):
 
     conn.commit()
         
-
 def main():
 
     path = os.path.dirname(os.path.abspath(__file__))
