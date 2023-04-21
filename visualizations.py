@@ -64,7 +64,7 @@ def avg_co_emissions(cur):
 
     for i in data:
         print(data)
-        avg_co.append(data[i][])
+        # avg_co.append(data[i][)
 
 
     avg_co = []
