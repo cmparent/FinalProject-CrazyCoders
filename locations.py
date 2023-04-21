@@ -16,7 +16,6 @@ def get_location_data(city):
 
 def create_airport_loc_table(cities, cur, conn):
 
-    cur.execute("DROP TABLE IF EXISTS airport_locations")
     cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, timezone TEXT NOT NULL, latitude TEXT NOT NULL, longitude TEXT NOT NULL, elevation INTEGER NOT NULL)")
     cur.execute("SELECT ID FROM airport_locations WHERE ID = (SELECT MAX(ID) FROM airport_locations)")
 
