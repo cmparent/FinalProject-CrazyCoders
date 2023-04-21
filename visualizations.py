@@ -81,31 +81,52 @@ def avg_tourists(cur):
     plt.title('Number of Tourists per Country vs. Low Country Elevation (ft)')
     plt.show()
 
+
+
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
-    high_elevation = cur.fetchall()
+    high_data = cur.fetchall()
+    total = 0
+    for country in high_data:
+        total += country[0]
+    high_elevation = round(total/len(high_data))
+
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
-    data = cur.fetchall()
-
+    med_data = cur.fetchall()
     total = 0
-    for country in data:
+    for country in med_data:
         total += country[0]
-    medium_elevation = round(total/len(data))
+    medium_elevation = round(total/len(med_data))
 
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 
-    low_elevation = cur.fetchall()
+    low_data = cur.fetchall()
+    total = 0
+    for country in low_data:
+        total += country[0]
+    low_elevation = round(total/len(low_data))
+
 
     with open('average_tourists_elevation.txt', 'w') as f:
-        f.write("In countries where the elevation is high, the average number of tourists is " + str(round(high_elevation[0][0])) + ".\n")
+        f.write("In countries where the elevation is high, the average number of tourists is " + str(high_elevation) + ".\n")
         f.write("In countries where the elevation is in the middle, the average number of tourists is " + str(medium_elevation) + ".\n")
-        f.write("In countries where the elevation is low, the average number of tourists is " + str(round(low_elevation[0][0]) + "."))
+        f.write("In countries where the elevation is low, the average number of tourists is " + str(low_elevation) + ".")
 
     f.close()
         
+
+# bar chart comparing all the elevations
+    
+    x = ["Low", "Medium", "High"]
+    y = [low_elevation, medium_elevation, high_elevation]
+
+    plt.bar(x, y, color = "purple")
+    plt.xlabel('Elevation Level (ft)')
+    plt.ylabel('Average Number of Tourists')
+    plt.title('Elevation Level vs. Average Number of Tourists')
+    plt.show()
         
 
-    
 
 # 3rd visualization - average pop. of countries grouped by AQI category 
 # AQI quality categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
