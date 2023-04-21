@@ -51,7 +51,7 @@ def avg_tourists(cur):
     for country in data:
         total = 0
         total += country[0]
-        medium_elevation = total/len(data)
+    medium_elevation = total/len(data)
 
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 

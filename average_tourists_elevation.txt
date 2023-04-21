@@ -1,3 +1,3 @@
 The average number of tourists where the elevation is high is 15334.0.
-The average number of tourists where the elevation is medium is -1.0.
+The average number of tourists where the elevation is medium is 383.4.
 The average number of tourists where the elevation is low is 1382.5.
