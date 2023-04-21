@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 # 1st visualization - average number of refugees in each country based on the airport's timezone
 
-def avg_lat_long(cur):
+def avg_timezones(cur):
 
     cur.execute("SELECT l.timezone, AVG(c.refugees) FROM airport_locations l JOIN country c ON l.ID = c.ID  WHERE c.refugees > 200 GROUP BY l.timezone")
     data = cur.fetchall()
@@ -19,7 +19,7 @@ def avg_lat_long(cur):
     europe_timezones = []
 
     for country in data:
-        print(country)
+        # print(country)
         if "Europe" in country[0]:
             europe_timezones.append(country)
         elif "America" in country[0]:
@@ -35,6 +35,7 @@ def avg_lat_long(cur):
         avg_refugees_timezone.append(country[1])
     
     avg_refugees_timezone.sort()
+    # print(avg_refugees_timezone)
     
     x = avg_refugees_timezone
     y = ["Africa/Bujumbura", "Africa/Conakry", "Africa/Johannesburg", "Africa/Khartoum", "Africa/Maputo", "Africa/Nairobi", "America/Chicago", "America/New_York", "America/Tegucigalpa", "Asia/Baghdad", "Asia/Beirut", "Asia/Dushanbe", "Asia/Kabul", "Asia/Karachi", "Asia/Kolkata", "Asia/Riyadh", "Asia/Shanghai", "Asia/Tashkent", "Europe/Berlin", "Europe/Kiev", "Europe/Paris", "Europe/Rome", "Europe/Sofia", "Europe/Stockholm", "Europe/Tallinn", "Europe/Vilnius"]
@@ -43,8 +44,30 @@ def avg_lat_long(cur):
     plt.ylabel("Time Zone of Country")
     plt.title('Average # of Refugees per Country vs. Time Zone of Country)')
     plt.show()
-    
 
+    # highest_ref = max(avg_refugees_timezone)
+    # lowest_ref = min(avg_refugees_timezone)
+
+    # total_ref= 0
+    # for num  in avg_refugees_timezone:
+    #     total_ref += num
+    # total_ref = total_ref/len(avg_refugees_timezone)
+
+    # highest_tz= ""
+    # lowest_tz = ""
+
+    # for country in data:
+    #     if country[1] == highest_ref:
+    #         highest_tz = country[0]
+    #     if country[1] == lowest_ref:
+    #         lowest_tz = country[0]
+
+    # with open('avg_timezones.txt', 'w') as f:
+    #     f.write("In the " + highest_tz + "timezone, the average number of refugees was " + str(round(highest_ref)) + ". This is the highest average number of refugees in a timezone.\n") 
+    #     f.write("In the " + lowest_tz + "timezone, the average number of refugees was " + str(round(lowest_ref)) + ". This is the lowest average number of refugees in a timezone.\n") 
+    #     f.write("Across all timezones, the average number of refugees is " + str(round(total_ref)))
+
+    # f.close()
 
         
 # 2nd visualization - number of tourists more than 200 vs elevation (scatterplot)
@@ -62,9 +85,6 @@ def avg_tourists(cur):
     for country in data:
         num_tourists.append(country[0])
         elevations.append(country[1])
-
-    # print(elevations)
-    # print(num_tourists)
 
     plt.scatter(num_tourists, elevations)
     plt.xlabel("Number of Tourists per Country")
@@ -90,7 +110,7 @@ def avg_tourists(cur):
     with open('average_tourists_elevation.txt', 'w') as f:
         f.write("In countries where the elevation is high, the average number of tourists is " + str(round(high_elevation[0][0])) + ".\n")
         f.write("In countries where the elevation is in the middle, the average number of tourists is " + str(medium_elevation) + ".\n")
-        f.write("In countries where the elevation is low, the average number of tourists is " + str(round(low_elevation[0][0]) + "."))
+        f.write("In countries where the elevation is low, the average number of tourists is " + str(round(low_elevation[0][0])) + ".")
 
     f.close()
         
@@ -172,7 +192,7 @@ def main():
 
     avg_tourists(cur)
     avg_AQI(cur)
-    avg_lat_long(cur)
+    avg_timezones(cur)
 
 main()
 
