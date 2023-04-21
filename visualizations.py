@@ -45,29 +45,29 @@ def avg_timezones(cur):
     plt.title('Average # of Refugees per Country vs. Time Zone of Country)')
     plt.show()
 
-    # highest_ref = max(avg_refugees_timezone)
-    # lowest_ref = min(avg_refugees_timezone)
+    highest_ref = max(avg_refugees_timezone)
+    lowest_ref = min(avg_refugees_timezone)
 
-    # total_ref= 0
-    # for num  in avg_refugees_timezone:
-    #     total_ref += num
-    # total_ref = total_ref/len(avg_refugees_timezone)
+    total_ref= 0
+    for num  in avg_refugees_timezone:
+        total_ref += num
+    total_ref = total_ref/len(avg_refugees_timezone)
 
-    # highest_tz= ""
-    # lowest_tz = ""
+    highest_tz= ""
+    lowest_tz = ""
 
-    # for country in data:
-    #     if country[1] == highest_ref:
-    #         highest_tz = country[0]
-    #     if country[1] == lowest_ref:
-    #         lowest_tz = country[0]
+    for country in data:
+        if country[1] == highest_ref:
+            highest_tz = country[0]
+        if country[1] == lowest_ref:
+            lowest_tz = country[0]
 
-    # with open('avg_timezones.txt', 'w') as f:
-    #     f.write("In the " + highest_tz + "timezone, the average number of refugees was " + str(round(highest_ref)) + ". This is the highest average number of refugees in a timezone.\n") 
-    #     f.write("In the " + lowest_tz + "timezone, the average number of refugees was " + str(round(lowest_ref)) + ". This is the lowest average number of refugees in a timezone.\n") 
-    #     f.write("Across all timezones, the average number of refugees is " + str(round(total_ref)))
+    with open('avg_timezones.txt', 'w') as f:
+        f.write("In the " + highest_tz + "timezone, the average number of refugees was " + str(round(highest_ref)) + ". This is the highest average number of refugees in a timezone.\n") 
+        f.write("In the " + lowest_tz + "timezone, the average number of refugees was " + str(round(lowest_ref)) + ". This is the lowest average number of refugees in a timezone.\n") 
+        f.write("Across all timezones, the average number of refugees is " + str(round(total_ref)))
 
-    # f.close()
+    f.close()
 
         
 # 2nd visualization - number of tourists more than 200 vs elevation (scatterplot)
@@ -92,31 +92,52 @@ def avg_tourists(cur):
     plt.title('Number of Tourists per Country vs. Low Country Elevation (ft)')
     plt.show()
 
+
+
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
-    high_elevation = cur.fetchall()
+    high_data = cur.fetchall()
+    total = 0
+    for country in high_data:
+        total += country[0]
+    high_elevation = round(total/len(high_data))
+
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
-    data = cur.fetchall()
-
+    med_data = cur.fetchall()
     total = 0
-    for country in data:
+    for country in med_data:
         total += country[0]
-    medium_elevation = round(total/len(data))
+    medium_elevation = round(total/len(med_data))
 
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 
-    low_elevation = cur.fetchall()
+    low_data = cur.fetchall()
+    total = 0
+    for country in low_data:
+        total += country[0]
+    low_elevation = round(total/len(low_data))
+
 
     with open('average_tourists_elevation.txt', 'w') as f:
-        f.write("In countries where the elevation is high, the average number of tourists is " + str(round(high_elevation[0][0])) + ".\n")
+        f.write("In countries where the elevation is high, the average number of tourists is " + str(high_elevation) + ".\n")
         f.write("In countries where the elevation is in the middle, the average number of tourists is " + str(medium_elevation) + ".\n")
-        f.write("In countries where the elevation is low, the average number of tourists is " + str(round(low_elevation[0][0])) + ".")
+        f.write("In countries where the elevation is low, the average number of tourists is " + str(low_elevation) + ".")
 
     f.close()
         
+
+# bar chart comparing all the elevations
+    
+    x = ["Low", "Medium", "High"]
+    y = [low_elevation, medium_elevation, high_elevation]
+
+    plt.bar(x, y, color = "palegreen")
+    plt.xlabel('Elevation Level')
+    plt.ylabel('Average Number of Tourists')
+    plt.title('Elevation Level vs. Average Number of Tourists')
+    plt.show()
         
 
-    
 
 # 3rd visualization - average pop. of countries grouped by AQI category 
 # AQI quality categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
@@ -177,7 +198,7 @@ def avg_AQI(cur):
     x = ["Good", "Moderate", "Unhealthy for Some", "Unhealthy for All"]
     y = [good_avg, mod_avg, unhealthy_s_avg, unhealthy_total_avg]
 
-    plt.bar(x, y, color = "red")
+    plt.bar(x, y, color = "paleturquoise")
     plt.xlabel('AQI (Air Quality Index) Category')
     plt.ylabel('Average Population Size of Country (in 100 millions)')
     plt.title('AQI vs. Average Country Population Size')
