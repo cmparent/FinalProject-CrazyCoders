@@ -59,11 +59,12 @@ def avg_tourists(cur):
 
 def avg_co_emissions(cur):
 
-    cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID WHERE c.population < 10000")
+    cur.execute("SELECT q.AQI, q.CO, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID WHERE c.population < 10000")
     data = cur.fetchall()
 
     for i in data:
         print(data)
+        # avg_co.append(data[i][])
 
 
     avg_co = []
