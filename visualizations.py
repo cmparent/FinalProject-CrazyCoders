@@ -240,12 +240,8 @@ def ec_weather(cur):
     for i in range(len(humidity)):
         if species[i] == max_species:
             max_humidity = humidity[i]
-    # print(min_species)
         elif species[i] == min_species:
-            # print(species[i], min_species)
-            # if min_species
             min_humidity = humidity[i]
-
 
     with open('weather_ec_calc.txt', 'w') as f:
         f.write("The largest number of threatened species, " + str(max_species) + ", is located in country with " + str(max_humidity) + " degrees of humidity.\n")
