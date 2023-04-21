@@ -54,12 +54,12 @@ def avg_tourists(cur):
         
 
 
-# 3rd calculation - average CO emissions in countries where population is less than 10,000
+# 3rd calculation - average population of countries grouped by AQI category 
 # AQI categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
 def avg_co_emissions(cur):
 
-    cur.execute("SELECT q.AQI, q.CO, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID WHERE c.population < 10000")
+    cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID")
     data = cur.fetchall()
 
     for i in data:
