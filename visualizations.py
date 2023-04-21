@@ -79,7 +79,7 @@ def avg_tourists(cur):
     plt.xlabel("Number of Tourists per Country")
     plt.ylabel("Low Country Elevation (ft)")
     plt.title('Number of Tourists per Country vs. Low Country Elevation (ft)')
-    # plt.show()
+    plt.show()
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
     high_elevation = cur.fetchall()

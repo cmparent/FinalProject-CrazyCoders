@@ -153,7 +153,7 @@ def main():
     countries = ['United States', 'France', 'Spain', 'Portugal', 'Germany', 'Belgium', 'China', 'Japan', 'South Korea', 'Honduras', 'Italy', 'Ireland', 'England', 'Canada','Poland', 'Sweden', 'Scotland', 'South Africa', 'Denmark', 'Iceland', 'UAE', 'Austria', 'Lebanon', 'Kenya', 'Peru', 'Nigeria', 'Ghana', 'Norway', 'Algeria', 'Jordan', 'Turkey', 'Turkmenistan', 'Etritrea', 'Kazakhstan', 'Greece', 'Azerbaijan', 'Mali', 'Brunei', 'Central African Republic', 'Gambia', 'Lithuania', 'Andorra', 'Saudi Arabia', 'Iraq', 'Cameroon', 'Maldives', 'Cambodia', 'Hungary', 'Argentina', 'Burundi', 'Egypt', 'Australia', 'Uzbekistan', 'Serbia', 'Moldova', 'Sri Lanka', 'Guinea', 'Latvia', 'Lithuania', 'Syria', 'Estonia', 'Bangladesh', 'Bulgaria', 'Myanmar', 'Qatar', 'Ireland', 'Tajikstan', 'Georgia', 'Tuvalu', 'Botswana', 'Guyana', 'Belarus', 'Mozambique', 'Zimbabwe', 'Finland', 'Soloman Islands', 'Pakistan', 'Indonesia', 'Afghanistan', 'Azerbaijan', 'Madagascar', 'Sudan', 'Ukraine', 'Rwanda', 'Jamaica', 'Singapore', 'Tunisia', 'Oman', 'Dominican Republic', 'Bolivia', 'Namibia', 'Paraguay', 'Comoros', 'Slovenia', 'Togo', 'Vanuatu', 'Seychelles', 'Zambia', 'Bosnia and Herzegovina', 'Croatia']
 
     create_airport_table(cities, cur, conn)
-    create_airport_loc_table(cities, cur, conn)
+    # create_airport_loc_table(cities, cur, conn)
 
     print("Added 25 rows to database!")
 
