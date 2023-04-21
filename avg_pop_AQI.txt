@@ -1,4 +1,4 @@
-The average population of a country with a 'Good' Air Quality Index is 50192120.
-The average population of a country with a 'Moderate' Air Quality Index is 74414720.
-The average population of a country with a 'Unhealthy (for some)' Air Quality Index is 18739760.
-The average population of a country with a 'Unhealhty (for all)' Air Quality Index is 34201600.
+The average population of a country with a 'Good' Air Quality Index is 84890069.
+The average population of a country with a 'Moderate' Air Quality Index is 29192138.
+The average population of a country with a 'Unhealthy (for some)' Air Quality Index is 20306897.
+The average population of a country with a 'Unhealhty (for all)' Air Quality Index is 15934655.

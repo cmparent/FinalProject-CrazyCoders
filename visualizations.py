@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 def avg_timezones(cur):
 
-    cur.execute("SELECT l.timezone, AVG(c.refugees) FROM airport_locations l JOIN country c ON l.ID = c.ID  WHERE c.refugees > 200 GROUP BY l.timezone")
+    cur.execute("SELECT l.timezone, AVG(c.refugees) FROM airport_locations l JOIN country c ON l.country_ID = c.ID WHERE c.refugees > 200 GROUP BY l.timezone")
     data = cur.fetchall()
 
     africa_timezones = []
@@ -38,7 +38,7 @@ def avg_timezones(cur):
     # print(avg_refugees_timezone)
     
     x = avg_refugees_timezone
-    y = ["Africa/Bujumbura", "Africa/Conakry", "Africa/Johannesburg", "Africa/Khartoum", "Africa/Maputo", "Africa/Nairobi", "America/Chicago", "America/New_York", "America/Tegucigalpa", "Asia/Baghdad", "Asia/Beirut", "Asia/Dushanbe", "Asia/Kabul", "Asia/Karachi", "Asia/Kolkata", "Asia/Riyadh", "Asia/Shanghai", "Asia/Tashkent", "Europe/Berlin", "Europe/Kiev", "Europe/Paris", "Europe/Rome", "Europe/Sofia", "Europe/Stockholm", "Europe/Tallinn", "Europe/Vilnius"]
+    y = ["Africa/Bujumbura", "Africa/Conakry", "Africa/Johannesburg", "Africa/Khartoum", "Africa/Maputo", "Africa/Nairobi", "America/Chicago", "America/New_York", "America/Tegucigalpa", "Asia/Baghdad", "Asia/Beirut", "Asia/Dushanbe", "Asia/Kabul", "Asia/Karachi", "Asia/Kolkata", "Asia/Riyadh", "Asia/Shanghai", "Asia/Tashkent", "Europe/Berlin", "Europe/Kiev", "Europe/Paris", "Europe/Rome", "Europe/Sofia", "Europe/Stockholm", "Europe/Tallinn", "Europe/Vilnius", "Pacific/Auckland"]
     plt.barh(y, x, color = "pink")
     plt.xlabel("Average Number of Refugees per Time Zone")
     plt.ylabel("Time Zone of Country")
@@ -77,8 +77,7 @@ def avg_tourists(cur):
     elevations = []
     num_tourists = []
 
-    cur.execute("SELECT c.tourists , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation < 200  ORDER BY c.tourists")
-    # cur.execute("SELECT MAX(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation < 200  ORDER BY c.tourists")
+    cur.execute("SELECT c.tourists , l.elevation, l.city_name FROM country c JOIN airport_locations l ON c.ID = l.country_ID WHERE l.elevation < 200  ORDER BY c.tourists")
     data = cur.fetchall()
 
     for country in data:
@@ -92,21 +91,21 @@ def avg_tourists(cur):
     plt.show()
 
 
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city_name FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
     high_data = cur.fetchall()
     total = 0
     for country in high_data:
         total += country[0]
     high_elevation = round(total/len(high_data))
 
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city_name FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
     med_data = cur.fetchall()
     total = 0
     for country in med_data:
         total += country[0]
     medium_elevation = round(total/len(med_data))
 
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city_name FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 
     low_data = cur.fetchall()
     total = 0
     for country in low_data:
@@ -137,7 +136,7 @@ def avg_tourists(cur):
 
 def avg_AQI(cur):
 
-    cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID")
+    cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.country_ID = c.ID")
     data = cur.fetchall()
 
     good = []
@@ -210,7 +209,7 @@ def ec_weather(cur):
     humidity = []
     species = []
 
-    cur.execute("SELECT w.city, w.humidity, c.threatened_species FROM weather w JOIN country c ON w.ID = c.ID WHERE w.humidity!= -1 AND w.humidity < 50")
+    cur.execute("SELECT l.city_name, w.humidity, c.threatened_species FROM weather w JOIN country c ON w.country_ID = c.ID JOIN airport_locations l ON l.country_ID = c.ID WHERE w.humidity!= -1 AND w.humidity < 50")
     data = cur.fetchall()
 
     for each in data:
