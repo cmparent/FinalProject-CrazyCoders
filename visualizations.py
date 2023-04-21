@@ -41,7 +41,7 @@ def avg_tourists(cur):
     plt.xlabel("Number of Tourists (more than 200) per Country")
     plt.ylabel("Country Elevation (ft)")
     plt.title('Number of Tourists per Country vs. Country Elevation (ft)')
-    plt.show()
+    # plt.show()
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
     high_elevation = cur.fetchall()
@@ -68,7 +68,7 @@ def avg_tourists(cur):
 # 3rd calculation - average pop. of countries grouped by AQI category 
 # AQI quality categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
-def avg_co_emissions(cur):
+def avg_AQI(cur):
 
     cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID")
     data = cur.fetchall()
@@ -81,29 +81,59 @@ def avg_co_emissions(cur):
     no_data = []
 
     for i in range(len(data)):
-        print(data[i][0])
+        # print(data[i][0])
+        # print(data[i][0])
         if data[i][0] == -1:
             no_data.append(data[i])
-        elif data[i][0] <= 50:
+            # print(no_data)
+        elif data[i][0] > 0 and data[i][0] <= 50:
             good.append(data)
-        elif data[i][0] >= 51 and data[i][0] <= 100:
-            moderate.append(data[i])
-        elif data[i][0] >= 101 and data[i][0] <= 150:
-            unhealthy_s.append(data[i])
-        elif data[i][0] >= 151 and data[i][0] <= 200:
-            unhealty.append(data[i])
-        # elif data[i][0] >= 201 and data[i][0] <= 250:
-        #     v_unhealthy.append(data[i][0]
+            print(data[i])
+    #     elif data[i][0] >= 51 and data[i][0] <= 100:
+    #         moderate.append(data[i])
+    #     elif data[i][0] >= 101 and data[i][0] <= 150:
+    #         unhealthy_s.append(data[i])
+    #     elif data[i][0] >= 151 and data[i][0] <= 200:
+    #         unhealty.append(data[i])
+    #     # elif data[i][0] >= 201 and data[i][0] <= 250:
+    #     #     v_unhealthy.append(data[i][0]
 
-    good_total = 0
-    mod_total = 0
-    unhealthy_s_total = 0
-    unhealthy_total = 0
+    # good_total = 0
+    # mod_total = 0
+    # unhealthy_s_total = 0
+    # unhealthy_total = 0
 
-    # edit the work
+    # edit the data, make it rounded
 
-    for country in good:
-        good_total = good_total + 
+    # for each_country in good:
+    #     print(each_country)
+    #     good_total = good_total + (each_country[3] * 1000)
+    # good_avg = round(good_total/len(good))
+
+    # for each_country in mod_total:
+    #     mod_total = mod_total + (each_country[3] * 1000)
+    # mod_avg = round(mod_total/len(good))
+
+    # for each_country in unhealthy_s_total:
+    #     unhealthy_s_total = unhealthy_s_total + (each_country[3] * 1000)
+    # unhealthy_s_avg = round(unhealthy_s_total/len(good))
+
+    # for each_country in unhealthy_total:
+    #     unhealthy_total = unhealthy_total + (each_country[3] * 1000)
+    # unhealthy_total_avg = round(unhealthy_total/len(good))
+
+
+    # x = ["Good", "Moderate", "Unhealthy for Some", "Unhealthy for All"]
+    # y = [good_avg, mod_avg, unhealthy_s_avg, unhealthy_total_avg]
+
+    # plt.bar(x, y)
+    # plt.xlabel('AQI (Air Quality Index) Category')
+    # plt.ylabel('Average Population Size of Country (in 100 millions)')
+    # plt.title('AQI vs. Average Country Population Size')
+    # plt.show()
+
+
+    
 
 
 
@@ -116,7 +146,7 @@ def main():
     cur = conn.cursor()
 
     avg_tourists(cur)
-    avg_co_emissions(cur)
+    avg_AQI(cur)
 
 main()
 
