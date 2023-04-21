@@ -14,6 +14,9 @@ def avg_lat_long(cur):
     data = cur.fetchall()
 
 
+
+    # for country in data:
+        
 # 2nd calculation - highest elevation of a country with tourists more than 200
 
 def avg_tourists(cur):
