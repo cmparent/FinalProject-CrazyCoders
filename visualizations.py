@@ -217,7 +217,6 @@ def ec_weather(cur):
         species.append(each[2])
     #     if each[1] == -1:
     #         continue
-    # print
     # species.sort()
     plt.barh(species, humidity, color = "plum")
     plt.ylabel("Number of Threatened Species")
