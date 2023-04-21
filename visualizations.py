@@ -18,8 +18,7 @@ def avg_lat_long(cur):
     # for country in data:
         
 # 2nd calculation - number of tourists more than 200 vs elevation (scatterplot)
-# reasoning: tourists wanna go to places with higher elevations/mountains maybe??
-# low elevation = 0-199, medium elevation: 200-999, high elevation: 1,000+
+# Elevation categories: low elevation = 0-199, medium elevation: 200-999, high elevation: 1,000+
 
 def avg_tourists(cur):
 
