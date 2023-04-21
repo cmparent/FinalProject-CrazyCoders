@@ -14,7 +14,6 @@ def get_data_weather(city):
 
 def create_weather_table(cities, cur, conn):
     
-    cur.execute("DROP TABLE IF EXISTS weather")
     cur.execute("CREATE TABLE IF NOT EXISTS weather (ID INTEGER PRIMARY KEY NOT NULL, city_ID INT NOT NULL, country_ID INT NOT NULL, wind_speed INTEGER, wind_degrees INTEGER, temperature INTEGER, humidity INTEGER, sunrise INTEGER, sunset INTEGER, cloud_pct INTEGER, feels_like INTEGER, max_temp INTEGER, min_temp INTEGER)")
     cur.execute("SELECT ID FROM weather WHERE ID = (SELECT MAX(ID) FROM weather)")
 

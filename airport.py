@@ -14,7 +14,7 @@ def get_airport_data(city):
     return airport_data
 
 def create_airport_table(cities, cur, conn):
-    # cur.execute("DROP TABLE IF EXISTS airports")
+    
     cur.execute("CREATE TABLE IF NOT EXISTS airports (ID INTEGER PRIMARY KEY, city_ID INT NOT NULL, IATA_CODE TEXT NOT NULL, airport_name TEXT NOT NULL)")
     cur.execute("SELECT ID FROM airports WHERE ID = (SELECT MAX(ID) FROM airports)")
 
