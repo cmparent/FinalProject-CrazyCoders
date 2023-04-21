@@ -7,6 +7,7 @@ import requests
 import matplotlib.pyplot as plt
 
 # 1st calculation - average number of refugees in each country based on the airport's timezone
+#  maybe there for those that 
 
 def avg_lat_long(cur):
 
@@ -54,21 +55,46 @@ def avg_tourists(cur):
         
 
 
-# 3rd calculation - average population of countries grouped by AQI category 
-# AQI categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
+# 3rd calculation - average pop. of countries grouped by AQI category 
+# AQI quality categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
 def avg_co_emissions(cur):
 
     cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID")
     data = cur.fetchall()
 
-    for i in data:
-        print(data)
-        # avg_co.append(data[i][)
+    good = []
+    moderate = []
+    unhealthy_s = []
+    unhealty = []
+    # v_unhealthy = []
+    no_data = []
 
+    for i in range(len(data)):
+        print(data[i][0])
+        if data[i][0] == -1:
+            no_data.append(data[i])
+        elif data[i][0] <= 50:
+            good.append(data)
+        elif data[i][0] >= 51 and data[i][0] <= 100:
+            moderate.append(data[i])
+        elif data[i][0] >= 101 and data[i][0] <= 150:
+            unhealthy_s.append(data[i])
+        elif data[i][0] >= 151 and data[i][0] <= 200:
+            unhealty.append(data[i])
+        # elif data[i][0] >= 201 and data[i][0] <= 250:
+        #     v_unhealthy.append(data[i][0]
 
-    avg_co = []
-    countries = []
+    good_total = 0
+    mod_total = 0
+    unhealthy_s_total = 0
+    unhealthy_total = 0
+
+    # edit the work
+
+    for country in good:
+        good_total = good_total + 
+
 
 
 

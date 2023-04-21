@@ -28,28 +28,27 @@ def create_air_quality_table(cities, cur, conn):
 
     for city in cities[first:first + 25]:
         air_data = get_data_air_quality(city)
-        print(air_data)
+        # print(air_data)
 
-    #     ID = first + count
-    #     city_name = city
+        ID = first + count
+        city_name = city
 
-    #     try:
-    #         AQI = air_data["overall_aqi"]
-    #     except:
-    #         AQI = -1
-    #     print(AQI)
-    #     try: 
-    #         carbon_monoxide = air_data["CO"]["concentration"]
-    #     except:
-    #         carbon_monoxide = -1
-    #     print(carbon_monoxide)
+        try:
+            AQI = air_data["overall_aqi"]
+        except:
+            AQI = -1
+        # print(AQI)
+        try: 
+            carbon_monoxide = air_data["CO"]["concentration"]
+        except:
+            carbon_monoxide = -1
+        # print(carbon_monoxide)
 
+        cur.execute("INSERT OR IGNORE INTO air_quality (ID, city, AQI, CO) VALUES (?, ?, ?, ?)",(ID, city_name, AQI, carbon_monoxide))
 
-    #     cur.execute("INSERT OR IGNORE INTO air_quality (ID, city, AQI, CO) VALUES (?, ?, ?, ?)",(ID, city_name, AQI, carbon_monoxide))
+        count += 1
 
-    #     count += 1
-
-    # conn.commit()
+    conn.commit()
 
 
 def main():
@@ -62,6 +61,6 @@ def main():
     # print(len(cities))
 
     create_air_quality_table(cities, cur, conn)
-    "Added 25 rows to database!"
+    print("Added 25 rows to database!")
 
 main()
