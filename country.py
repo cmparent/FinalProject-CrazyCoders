@@ -12,7 +12,7 @@ def getdata(country):
     return countrydata
 
 def createtable1(countries1, cur, conn):
-    # cur.execute("DROP TABLE IF EXISTS country")
+    cur.execute("DROP TABLE IF EXISTS country")
     cur.execute("CREATE TABLE IF NOT EXISTS country (ID INTEGER, gdp INTEGER, surface_area INTEGER, life_expectancy_male INTEGER, imports INTERGER, currency_name TEXT, urban_population_growth INTEGER, capital TEXT, threatened_species TEXT, tourists INTEGER, life_expectancy_female INTEGER, population INTEGER, urban_population INTEGER, name TEXT, pop_growth INTEGER, region INTEGER, pop_density INTEGER, AQI_ID INTEGER, refugees INTEGER)")
     cur.execute("SELECT ID FROM country WHERE ID = (SELECT MAX(ID) FROM country)")
 
