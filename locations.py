@@ -49,10 +49,10 @@ def create_airport_loc_table(cities, cur, conn):
                 airportdata = airportdata[0]
             elif city == "Copenhagen":
                 airportdata = airportdata[0]
-        #     elif city == "Wellington":
-        #         airportdata = airportdata[2]
-        #     elif city == "Stockholm":
-        #         airportdata = airportdata[0]
+            elif city == "Wellington":
+                airportdata = airportdata[2]
+            elif city == "Stockholm":
+                airportdata = airportdata[0]
 
         if type(airportdata) == list:
             airportdata = airportdata[0]

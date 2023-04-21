@@ -210,6 +210,36 @@ def avg_AQI(cur):
         f.write("The average population of a country with a 'Unhealhty (for all)' Air Quality Index is " + str(unhealthy_total_avg) + ".\n")
     f.close()
     
+
+def ec_weather(cur):
+
+    humidity = []
+    species = []
+
+    cur.execute("SELECT w.city, w.humidity, c.threatened_species FROM weather w JOIN country c ON w.ID = c.ID WHERE w.humidity!= -1 AND w.humidity < 50")
+    data = cur.fetchall()
+
+    for each in data:
+        humidity.append(each[1])
+        species.append(each[2])
+    #     if each[1] == -1:
+    #         continue
+    # print
+    # species.sort()
+    plt.barh(species, humidity, color = "plum")
+    plt.ylabel("Number of Threatened Species")
+    plt.xlabel("Humidity in Country (in countries where humidity is less than 50 F) (deg. F)")
+    plt.title("Number of Threatened Species vs. Humidity (deg. F)")
+    plt.show()
+
+
+
+
+
+
+
+
+
 def main():
 
     path = os.path.dirname(os.path.abspath(__file__))
@@ -219,6 +249,7 @@ def main():
     avg_tourists(cur)
     avg_AQI(cur)
     avg_timezones(cur)
+    ec_weather(cur)
 
 main()
 
