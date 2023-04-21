@@ -17,13 +17,29 @@ def avg_lat_long(cur):
 
     # for country in data:
         
-# 2nd calculation - highest elevation of a country with tourists more than 200
+# 2nd calculation - number of tourists more than 200 vs elevation (scatterplot)
+#reasoning: tourists wanna go to places with higher elevations/mountains maybe??
 
 def avg_tourists(cur):
 
+    elevations = []
+    num_tourists = []
+
     cur.execute("SELECT c.tourists , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200  ORDER BY c.tourists")
-    cur.execute("SELECT MAX(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200  ORDER BY c.tourists")
+    # cur.execute("SELECT MAX(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200  ORDER BY c.tourists")
     data = cur.fetchall()
+
+    for country in data:
+        elevations.append(country[1])
+        num_tourists.append(country[0])
+
+    plt.scatter(num_tourists, elevations)
+    plt.xlabel("Number of Tourists (more than 200) per Country")
+    plt.ylabel("Country Elevation (ft)")
+    plt.title('Number of Tourists per Country vs. Country Elevation (ft)')
+    plt.show()
+        
+
 
 # 3rd calculation - average CO emissions in countries where population is less than 10,000
 
