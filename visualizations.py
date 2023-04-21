@@ -138,7 +138,6 @@ def avg_tourists(cur):
     plt.show()
         
 
-
 # 3rd visualization - average pop. of countries grouped by AQI category 
 # AQI quality categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
