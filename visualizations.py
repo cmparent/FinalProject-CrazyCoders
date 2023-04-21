@@ -63,9 +63,9 @@ def avg_timezones(cur):
             lowest_tz = country[0]
 
     with open('avg_timezones.txt', 'w') as f:
-        f.write("In the " + highest_tz + "timezone, the average number of refugees was " + str(round(highest_ref)) + ". This is the highest average number of refugees in a timezone.\n") 
-        f.write("In the " + lowest_tz + "timezone, the average number of refugees was " + str(round(lowest_ref)) + ". This is the lowest average number of refugees in a timezone.\n") 
-        f.write("Across all timezones, the average number of refugees is " + str(round(total_ref)))
+        f.write("In the " + highest_tz + " timezone, the average number of refugees was " + str(round(highest_ref)) + ". This is the highest average number of refugees in a timezone.\n") 
+        f.write("In the " + lowest_tz + " timezone, the average number of refugees was " + str(round(lowest_ref)) + ". This is the lowest average number of refugees in a timezone.\n") 
+        f.write("Across all timezones, the average number of refugees is " + str(round(total_ref)) + ".")
 
     f.close()
 

@@ -1,3 +1,3 @@
-In the Europe/Vilniustimezone, the average number of refugees was 6387. This is the highest average number of refugees in a timezone.
-In the Africa/Conakrytimezone, the average number of refugees was 226. This is the lowest average number of refugees in a timezone.
-Across all timezones, the average number of refugees is 1318
+In the Europe/Vilnius timezone, the average number of refugees was 6387. This is the highest average number of refugees in a timezone.
+In the Africa/Conakry timezone, the average number of refugees was 226. This is the lowest average number of refugees in a timezone.
+Across all timezones, the average number of refugees is 1318.
