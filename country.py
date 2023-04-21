@@ -13,7 +13,7 @@ def getdata(country):
 
 def createtable1(countries1, cur, conn):
 
-    cur.execute("CREATE TABLE IF NOT EXISTS country (ID INTEGER, gdp INTEGER, surface_area INTEGER, life_expectancy_male INTEGER, imports INTERGER, currency_name TEXT, urban_population_growth INTEGER, capital TEXT, threatened_species TEXT, tourists INTEGER, life_expectancy_female INTEGER, population INTEGER, urban_population INTEGER, name TEXT, pop_growth INTEGER, region INTEGER, pop_density INTEGER, AQI_ID INTEGER, refugees INTEGER)")
+    cur.execute("CREATE TABLE IF NOT EXISTS country (ID INTEGER, name TEXT, gdp INTEGER, surface_area INTEGER, life_expectancy_male INTEGER, imports INTERGER, currency_name TEXT, urban_population_growth INTEGER, capital TEXT, threatened_species TEXT, tourists INTEGER, life_expectancy_female INTEGER, population INTEGER, urban_population INTEGER, pop_growth INTEGER, region INTEGER, pop_density INTEGER, AQI_ID INTEGER, refugees INTEGER)")
     cur.execute("SELECT ID FROM country WHERE ID = (SELECT MAX(ID) FROM country)")
 
     count1 = 0
@@ -99,7 +99,7 @@ def createtable1(countries1, cur, conn):
         except:
             country_refugees = -1
 
-        cur.execute("INSERT OR IGNORE INTO country (ID, gdp, surface_area, life_expectancy_male, imports, currency_name, urban_population_growth, capital, tourists, life_expectancy_female, threatened_species, population, urban_population, name, pop_growth, region, pop_density, AQI_ID, refugees) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(country_ID, country_gdp, country_SA, country_LEM, country_imports, country_currencyname, country_UPG, country_capital, country_tourists, country_LEF, country_TS, country_pop, country_UP, country_name, country_popgrowth, country_region, country_popdensity, country_ID, country_refugees))
+        cur.execute("INSERT OR IGNORE INTO country (ID, name, gdp, surface_area, life_expectancy_male, imports, currency_name, urban_population_growth, capital, tourists, life_expectancy_female, threatened_species, population, urban_population, pop_growth, region, pop_density, AQI_ID, refugees) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(country_ID, country_name, country_gdp, country_SA, country_LEM, country_imports, country_currencyname, country_UPG, country_capital, country_tourists, country_LEF, country_TS, country_pop, country_UP, country_popgrowth, country_region, country_popdensity, country_ID, country_refugees))
 
         count1 += 1
 
