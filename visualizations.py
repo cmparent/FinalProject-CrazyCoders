@@ -6,8 +6,7 @@ import requests
 import matplotlib
 import matplotlib.pyplot as plt
 
-# 1st calculation - average number of refugees in each country based on the airport's timezone
-#  maybe there for those that 
+# 1st visualization - average number of refugees in each country based on the airport's timezone
 
 def avg_lat_long(cur):
 
@@ -57,7 +56,7 @@ def avg_lat_long(cur):
     # x = ["]
 
         
-# 2nd calculation - number of tourists more than 200 vs elevation (scatterplot)
+# 2nd visualization - number of tourists more than 200 vs elevation (scatterplot)
 # Elevation categories: low elevation = 0-199, medium elevation: 200-999, high elevation: 1,000+
 
 def avg_tourists(cur):
@@ -101,10 +100,15 @@ def avg_tourists(cur):
     with open('average_tourists_elevation.txt', 'w') as f:
         f.write("The average number of tourists where the elevation is high is " + str(round(high_elevation[0][0])) + ".\n")
         f.write("The average number of tourists where the elevation is medium is " + str(medium_elevation) + ".\n")
-        f.write("The average number of tourists where the elevation is low is " + str(round(low_elevation[0][0])) + ".")
+        f.write("The average number of tourists where the elevation is low is " + str(round(low_elevation[0][0]) + ".")
+
+    f.close()
+        
+        
 
     
-# 3rd calculation - average pop. of countries grouped by AQI category 
+
+# 3rd visualization - average pop. of countries grouped by AQI category 
 # AQI quality categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
 def avg_AQI(cur):
