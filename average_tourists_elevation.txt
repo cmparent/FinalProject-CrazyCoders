@@ -1,1 +1,1 @@
-The average number of tourists where the elevation is greater than 9,000 feet is [(1413.0, 10682, 'Baku')].
+The average number of tourists where the elevation is greater than 9,000 feet is (1413.0, 10682, 'Baku').The average number of tourists where the elevation is less than 1,000 feet is (1382.5, 0, 'Funafuti').
