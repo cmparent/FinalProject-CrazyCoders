@@ -204,6 +204,12 @@ def avg_AQI(cur):
     plt.title('AQI vs. Average Country Population Size')
     plt.show()
 
+    with open('avg_pop_AQI.txt', 'w') as f:
+        f.write("The average population of a country with a 'Good' Air Quality Index is " + str(good_avg) + ".\n")
+        f.write("The average population of a country with a 'Moderate' Air Quality Index is " + str(mod_avg) + ".\n")
+        f.write("The average population of a country with a 'Unhealthy (for some)' Air Quality Index is " + str(unhealthy_s_avg) + ".\n")
+        f.write("The average population of a country with a 'Unhealhty (for all)' Air Quality Index is " + str(unhealthy_total_avg) + ".\n")
+    f.close()
     
 def main():
 
