@@ -14,7 +14,8 @@ def get_data_weather(city):
 
 def create_weather_table(cities, cur, conn):
     
-    cur.execute("CREATE TABLE IF NOT EXISTS weather (ID INTEGER PRIMARY KEY NOT NULL, city TEXT, wind_speed INTEGER, wind_degrees INTEGER, temperature INTEGER, humidity INTEGER, sunrise INTEGER, sunset INTEGER, cloud_pct INTEGER, feels_like INTEGER, max_temp INTEGER, min_temp INTEGER)")
+    cur.execute("DROP TABLE IF EXISTS weather")
+    cur.execute("CREATE TABLE IF NOT EXISTS weather (ID INTEGER PRIMARY KEY NOT NULL, city_ID INT NOT NULL, country_ID INT NOT NULL, wind_speed INTEGER, wind_degrees INTEGER, temperature INTEGER, humidity INTEGER, sunrise INTEGER, sunset INTEGER, cloud_pct INTEGER, feels_like INTEGER, max_temp INTEGER, min_temp INTEGER)")
     cur.execute("SELECT ID FROM weather WHERE ID = (SELECT MAX(ID) FROM weather)")
 
     count = 0
@@ -74,7 +75,7 @@ def create_weather_table(cities, cur, conn):
         except:
             sunset = -1
 
-        cur.execute("INSERT OR IGNORE INTO weather (ID, city, wind_speed, wind_degrees, temperature, humidity, sunrise, sunset, cloud_pct, feels_like, max_temp, min_temp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (ID, city_name, wind_speed, wind_deg, temp, humidity, sunrise, sunset, cloud_pct, feels_like, max_temp, min_temp))
+        cur.execute("INSERT OR IGNORE INTO weather (ID, city_ID, country_ID, wind_speed, wind_degrees, temperature, humidity, sunrise, sunset, cloud_pct, feels_like, max_temp, min_temp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (ID, ID, ID, wind_speed, wind_deg, temp, humidity, sunrise, sunset, cloud_pct, feels_like, max_temp, min_temp))
 
         count += 1
 
