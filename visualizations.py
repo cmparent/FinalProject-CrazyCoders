@@ -48,8 +48,9 @@ def avg_tourists(cur):
     under_1k = cur.fetchall()
 
     with open('average_tourists_elevation.txt', 'w') as a:
-        a.write("The average number of tourists where the elevation is greater than 9,000 feet is " + str(over_9k[0]) + ".")
-        a.write("The average number of tourists where the elevation is less than 1,000 feet is " + str(under_1k[0]) + ".")
+        a.write("The average number of tourists where the elevation is greater than 9,000 feet is " + str(over_9k[0][0]) + ".\n")
+        a.write("The average number of tourists where the elevation is less than 1,000 feet is " + str(under_1k[0][0]) + ".\n")
+        a.write()
         
         
 
