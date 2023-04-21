@@ -37,10 +37,13 @@ def create_air_quality_table(cities, cur, conn):
             AQI = air_data["overall_aqi"]
         except:
             AQI = -1
+        # print(AQI)
         try: 
             carbon_monoxide = air_data["CO"]["concentration"]
         except:
             carbon_monoxide = -1
+        # print(carbon_monoxide)
+
 
         cur.execute("INSERT OR IGNORE INTO air_quality (ID, city, AQI, CO) VALUES (?, ?, ?, ?)",(ID, city_name, AQI, carbon_monoxide))
 
