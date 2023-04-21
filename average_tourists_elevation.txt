@@ -1,1 +1,3 @@
-The average number of tourists where the elevation is greater than 9,000 feet is [(1413.0, 10682, 'Baku')].
+The average number of tourists where the elevation is high (greater than 1,000 feet) is 15334.0.
+The average number of tourists where the elevation is medium (greater than 200, less than 1,000 feet) is -1.0.
+The average number of tourists where the elevation is low (200 or lower) is1382.5.
