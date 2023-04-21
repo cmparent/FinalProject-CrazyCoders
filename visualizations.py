@@ -47,6 +47,7 @@ def avg_tourists(cur):
     with open('average_tourists_elevation.txt', 'w') as a:
         a.write("The average number of tourists where the elevation is greater than 9,000 feet is " + str(over_9k)+".")
         
+        
 
 
 # 3rd calculation - average CO emissions in countries where population is less than 10,000
