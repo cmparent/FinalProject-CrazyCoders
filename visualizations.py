@@ -48,27 +48,24 @@ def avg_tourists(cur):
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
     medium_elevation = cur.fetchall()
 
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200  GROUP BY l.elevation") 
-    low_elevation = cur.fetchall()
-
-    with open('average_tourists_elevation.txt', 'w') as f:
-        f.write("The average number of tourists where the elevation is high is " + str(high_elevation[0][0]) + ".\n")
-        f.write("The average number of tourists where the elevation is medium is " + str(medium_elevation[0][0]) + ".\n")
-        f.write("The average number of tourists where the elevation is low is " + str(low_elevation[0][0]) + ".\n")
-
-    f.close()
+    with open('average_tourists_elevation.txt', 'w') as a:
+        a.write("The average number of tourists where the elevation is greater than 9,000 feet is " + str(over_9k[0]) + ".")
+        a.write("The average number of tourists where the elevation is less than 1,000 feet is " + str(under_1k[0]) + ".")
         
-    
-# 3rd calculation - average CO emissions in countries where population is less than 10,000
+        
+
+
+# 3rd calculation - average population of countries grouped by AQI category 
+# AQI categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
 def avg_co_emissions(cur):
 
-    cur.execute("SELECT q.AQI, q.CO, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID WHERE c.population < 10000")
+    cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID")
     data = cur.fetchall()
 
     for i in data:
         print(data)
-        # avg_co.append(data[i][])
+        # avg_co.append(data[i][)
 
 
     avg_co = []
