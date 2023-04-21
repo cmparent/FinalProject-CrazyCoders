@@ -14,6 +14,39 @@ def avg_lat_long(cur):
     cur.execute("SELECT l.timezone, AVG(c.refugees) FROM airport_locations l JOIN country c ON l.ID = c.ID  WHERE c.refugees > 200 GROUP BY l.timezone")
     data = cur.fetchall()
 
+    africa_timezones = []
+    america_timezones = []
+    asia_timezones = []
+    europe_timezones = []
+
+    for country in data:
+        print(country)
+        if "Europe" in country[0]:
+            europe_timezones.append(country)
+        elif "America" in country[0]:
+            america_timezones.append(country)
+        elif "Asia" in country[0]:
+            asia_timezones.append(country)
+        elif "Africa" in country[0]:
+            africa_timezones.append(country)
+
+
+    avg_refugees_timezone = []
+
+    for country in data:
+        avg_refugees_timezone.append(country[1])
+    
+    x = avg_refugees_timezone
+    y = ["Africa/Bujumbura", "Africa/Conakry", "Africa/Johannesburg", "Africa/Khartoum", "Africa/Maputo", "Africa/Nairobi", "America/Chicago", "America/New_York", "America/Tegucigalpa", "Asia/Baghdad", "Asia/Beirut", "Asia/Dushanbe", "Asia/Kabul", "Asia/Karachi", "Asia/Kolkata", "Asia/Riyadh", "Asia/Shanghai", "Asia/Tashkent", "Europe/Berlin", "Europe/Kiev", "Europe/Paris", "Europe/Rome", "Europe/Sofia", "Europe/Stockholm", "Europe/Tallinn", "Europe/Vilnius"]
+    plt.barh(y, x)
+    plt.show()
+    
+
+
+
+
+    # print(avg_refugees_timezone)
+
 
 
 
@@ -47,7 +80,7 @@ def avg_tourists(cur):
     plt.xlabel("Number of Tourists (more than 200) per Country")
     plt.ylabel("Country Elevation (ft)")
     plt.title('Number of Tourists per Country vs. Country Elevation (ft)')
-    plt.show()
+    # plt.show()
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
     high_elevation = cur.fetchall()
@@ -71,7 +104,6 @@ def avg_tourists(cur):
         f.write("The average number of tourists where the elevation is low is " + str(round(low_elevation[0][0])) + ".")
 
     
-
 # 3rd calculation - average pop. of countries grouped by AQI category 
 # AQI quality categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
@@ -131,7 +163,7 @@ def avg_AQI(cur):
     x = ["Good", "Moderate", "Unhealthy for Some", "Unhealthy for All"]
     y = [good_avg, mod_avg, unhealthy_s_avg, unhealthy_total_avg]
 
-    plt.bar(x, y, color = "blue")
+    plt.bar(x, y, color = "red")
     plt.xlabel('AQI (Air Quality Index) Category')
     plt.ylabel('Average Population Size of Country (in 100 millions)')
     plt.title('AQI vs. Average Country Population Size')
