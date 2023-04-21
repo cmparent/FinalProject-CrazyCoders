@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 def avg_timezones(cur):
 
-    cur.execute("SELECT l.timezone, AVG(c.refugees) FROM airport_locations l JOIN country c ON l.ID = c.ID  WHERE c.refugees > 200 GROUP BY l.timezone")
+    cur.execute("SELECT l.timezone, AVG(c.refugees) FROM airport_locations l JOIN country c ON l.country_ID = c.ID WHERE c.refugees > 200 GROUP BY l.timezone")
     data = cur.fetchall()
 
     africa_timezones = []
@@ -38,7 +38,7 @@ def avg_timezones(cur):
     # print(avg_refugees_timezone)
     
     x = avg_refugees_timezone
-    y = ["Africa/Bujumbura", "Africa/Conakry", "Africa/Johannesburg", "Africa/Khartoum", "Africa/Maputo", "Africa/Nairobi", "America/Chicago", "America/New_York", "America/Tegucigalpa", "Asia/Baghdad", "Asia/Beirut", "Asia/Dushanbe", "Asia/Kabul", "Asia/Karachi", "Asia/Kolkata", "Asia/Riyadh", "Asia/Shanghai", "Asia/Tashkent", "Europe/Berlin", "Europe/Kiev", "Europe/Paris", "Europe/Rome", "Europe/Sofia", "Europe/Stockholm", "Europe/Tallinn", "Europe/Vilnius"]
+    y = ["Africa/Bujumbura", "Africa/Conakry", "Africa/Johannesburg", "Africa/Khartoum", "Africa/Maputo", "Africa/Nairobi", "America/Chicago", "America/New_York", "America/Tegucigalpa", "Asia/Baghdad", "Asia/Beirut", "Asia/Dushanbe", "Asia/Kabul", "Asia/Karachi", "Asia/Kolkata", "Asia/Riyadh", "Asia/Shanghai", "Asia/Tashkent", "Europe/Berlin", "Europe/Kiev", "Europe/Paris", "Europe/Rome", "Europe/Sofia", "Europe/Stockholm", "Europe/Tallinn", "Europe/Vilnius", "Pacific/Auckland"]
     plt.barh(y, x, color = "pink")
     plt.xlabel("Average Number of Refugees per Time Zone")
     plt.ylabel("Time Zone of Country")
@@ -69,7 +69,6 @@ def avg_timezones(cur):
 
     f.close()
 
-        
 # 2nd visualization - number of tourists more than 200 vs elevation (scatterplot)
 # Elevation categories: low elevation = 0-199, medium elevation: 200-999, high elevation: 1,000+
 
@@ -78,8 +77,7 @@ def avg_tourists(cur):
     elevations = []
     num_tourists = []
 
-    cur.execute("SELECT c.tourists , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation < 200  ORDER BY c.tourists")
-    # cur.execute("SELECT MAX(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation < 200  ORDER BY c.tourists")
+    cur.execute("SELECT c.tourists , l.elevation, l.city_name FROM country c JOIN airport_locations l ON c.ID = l.country_ID WHERE l.elevation < 200  ORDER BY c.tourists")
     data = cur.fetchall()
 
     for country in data:
@@ -93,30 +91,26 @@ def avg_tourists(cur):
     plt.show()
 
 
-
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city_name FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
     high_data = cur.fetchall()
     total = 0
     for country in high_data:
         total += country[0]
     high_elevation = round(total/len(high_data))
 
-
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city_name FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200 AND l.elevation < 1000  GROUP BY l.elevation") 
     med_data = cur.fetchall()
     total = 0
     for country in med_data:
         total += country[0]
     medium_elevation = round(total/len(med_data))
 
-
-    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 
+    cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city_name FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation <= 200 AND l.elevation < 1000  GROUP BY l.elevation") 
     low_data = cur.fetchall()
     total = 0
     for country in low_data:
         total += country[0]
     low_elevation = round(total/len(low_data))
-
 
     with open('average_tourists_elevation.txt', 'w') as f:
         f.write("In countries where the elevation is high (1,000+ ft), the average number of tourists is " + str(high_elevation) + ".\n")
@@ -125,7 +119,6 @@ def avg_tourists(cur):
 
     f.close()
         
-
 # bar chart comparing all the elevations
     
     x = ["Low", "Medium", "High"]
@@ -138,13 +131,12 @@ def avg_tourists(cur):
     plt.show()
         
 
-
 # 3rd visualization - average pop. of countries grouped by AQI category 
 # AQI quality categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
 def avg_AQI(cur):
 
-    cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.ID = c.ID")
+    cur.execute("SELECT q.AQI, c.name, c.population FROM air_quality q JOIN country c ON q.country_ID = c.ID")
     data = cur.fetchall()
 
     good = []
@@ -204,7 +196,34 @@ def avg_AQI(cur):
     plt.title('AQI vs. Average Country Population Size')
     plt.show()
 
+    with open('avg_pop_AQI.txt', 'w') as f:
+        f.write("The average population of a country with a 'Good' Air Quality Index is " + str(good_avg) + ".\n")
+        f.write("The average population of a country with a 'Moderate' Air Quality Index is " + str(mod_avg) + ".\n")
+        f.write("The average population of a country with a 'Unhealthy (for some)' Air Quality Index is " + str(unhealthy_s_avg) + ".\n")
+        f.write("The average population of a country with a 'Unhealhty (for all)' Air Quality Index is " + str(unhealthy_total_avg) + ".\n")
+    f.close()
     
+
+def ec_weather(cur):
+
+    humidity = []
+    species = []
+
+    cur.execute("SELECT l.city_name, w.humidity, c.threatened_species FROM weather w JOIN country c ON w.country_ID = c.ID JOIN airport_locations l ON l.country_ID = c.ID WHERE w.humidity!= -1 AND w.humidity < 50")
+    data = cur.fetchall()
+
+    for each in data:
+        humidity.append(each[1])
+        species.append(each[2])
+    #     if each[1] == -1:
+    #         continue
+    # species.sort()
+    plt.barh(species, humidity, color = "plum")
+    plt.ylabel("Number of Threatened Species")
+    plt.xlabel("Humidity in Country (in countries where humidity is less than 50 F) (deg. F)")
+    plt.title("Number of Threatened Species vs. Humidity (deg. F)")
+    plt.show()
+
 def main():
 
     path = os.path.dirname(os.path.abspath(__file__))
@@ -214,6 +233,7 @@ def main():
     avg_tourists(cur)
     avg_AQI(cur)
     avg_timezones(cur)
+    ec_weather(cur)
 
 main()
 

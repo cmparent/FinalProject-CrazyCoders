@@ -4,7 +4,6 @@ import json
 import os
 import requests
 
-
 def get_location_data(city):
 
     airport_url = 'https://api.api-ninjas.com/v1/airports?name={}'.format(city)
@@ -13,11 +12,9 @@ def get_location_data(city):
 
     return airport_data
 
-
 def create_airport_loc_table(cities, cur, conn):
-
-    # cur.execute("DROP TABLE IF EXISTS airport_locations")
-    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, city TEXT NOT NULL, timezone TEXT NOT NULL, latitude TEXT NOT NULL, longitude TEXT NOT NULL, elevation INTEGER NOT NULL)")
+    
+    cur.execute("CREATE TABLE IF NOT EXISTS airport_locations (ID INTEGER PRIMARY KEY, country_ID TEXT NOT NULL, city_name TEXT NOT NULL, timezone TEXT NOT NULL, latitude TEXT NOT NULL, longitude TEXT NOT NULL, elevation INTEGER NOT NULL)")
     cur.execute("SELECT ID FROM airport_locations WHERE ID = (SELECT MAX(ID) FROM airport_locations)")
 
     count = 0
@@ -49,15 +46,13 @@ def create_airport_loc_table(cities, cur, conn):
                 airportdata = airportdata[0]
             elif city == "Copenhagen":
                 airportdata = airportdata[0]
-        #     elif city == "Wellington":
-        #         airportdata = airportdata[2]
-        #     elif city == "Stockholm":
-        #         airportdata = airportdata[0]
+            elif city == "Wellington":
+                airportdata = airportdata[2]
+            elif city == "Stockholm":
+                airportdata = airportdata[0]
 
         if type(airportdata) == list:
             airportdata = airportdata[0]
-
-        # print(airportdata)
 
         ID = first + count
         city_name = city
@@ -66,9 +61,7 @@ def create_airport_loc_table(cities, cur, conn):
         long = airportdata["longitude"]
         elevation = airportdata["elevation_ft"]
 
-        # print(ID, city_name, time_zone, lat, long)
-
-        cur.execute("INSERT OR IGNORE INTO airport_locations (ID, city, timezone, latitude, longitude, elevation) VALUES (?, ?, ?, ?, ?, ?)",(ID, city_name, time_zone, lat, long, elevation))
+        cur.execute("INSERT OR IGNORE INTO airport_locations (ID, country_ID, city_name, timezone, latitude, longitude, elevation) VALUES (?, ?, ?, ?, ?, ?, ?)",(ID, ID, city_name, time_zone, lat, long, elevation))
         
         count += 1
 

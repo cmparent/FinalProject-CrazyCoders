@@ -14,8 +14,8 @@ def get_data_air_quality(country):
     return data
 
 def create_air_quality_table(cities, cur, conn):
-    # cur.execute("DROP TABLE IF EXISTS air_quality")
-    cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER PRIMARY KEY, city TEXT, AQI INTEGER, CO INTEGER)")
+
+    cur.execute("CREATE TABLE IF NOT EXISTS air_quality (ID INTEGER PRIMARY KEY, city_ID INT NOT NULL, country_ID INT NOT NULL, AQI INTEGER, CO INTEGER)")
     cur.execute("SELECT ID FROM air_quality WHERE ID = (SELECT MAX(ID) FROM air_quality)")
 
     count = 0
@@ -44,7 +44,7 @@ def create_air_quality_table(cities, cur, conn):
             carbon_monoxide = -1
         # print(carbon_monoxide)
 
-        cur.execute("INSERT OR IGNORE INTO air_quality (ID, city, AQI, CO) VALUES (?, ?, ?, ?)",(ID, city_name, AQI, carbon_monoxide))
+        cur.execute("INSERT OR IGNORE INTO air_quality (ID, city_ID, country_ID, AQI, CO) VALUES (?, ?, ?, ?, ?)",(ID, ID, ID, AQI, carbon_monoxide))
 
         count += 1
 
