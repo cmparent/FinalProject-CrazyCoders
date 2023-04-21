@@ -213,16 +213,37 @@ def ec_weather(cur):
     data = cur.fetchall()
 
     for each in data:
-        humidity.append(each[1])
-        species.append(each[2])
+        humidity.append(int(each[1]))
+        species.append(float(each[2]))
     #     if each[1] == -1:
     #         continue
-    # species.sort()
+    species.sort()
+
     plt.barh(species, humidity, color = "plum")
     plt.ylabel("Number of Threatened Species")
     plt.xlabel("Humidity in Country (in countries where humidity is less than 50 F) (deg. F)")
     plt.title("Number of Threatened Species vs. Humidity (deg. F)")
     plt.show()
+
+    max_species = max(species)
+    min_species = species[4]
+    max_humidity = 0
+    min_humidity = 0
+
+    for i in range(len(humidity)):
+        if species[i] == max_species:
+            max_humidity = humidity[i]
+    # print(min_species)
+        elif species[i] == min_species:
+            # print(species[i], min_species)
+            # if min_species
+            min_humidity = humidity[i]
+
+
+    with open('weather_ec_calc.txt', 'w') as f:
+        f.write("The largest number of threatened species, " + str(max_species) + ", is located in country with " + str(max_humidity) + " degrees of humidity.\n")
+        f.write("The smallest number of threatened species, " + str(min_species) + ", is located in country with " + str(min_humidity) + " degrees of humidity.")
+    f.close()
 
 def main():
 
