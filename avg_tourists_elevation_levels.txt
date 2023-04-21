@@ -1,3 +1,3 @@
-The average number of tourists is 12210 in countries with low elevation.
-The average number of tourists is 14694 in countries with medium elevation.
-The average number of tourists is 4221 in countries with high elevation.
+The average number of tourists in countries with low elevation is 12210.
+The average number of tourists in countries with medium elevation is 14694.
+The average number of tourists in countries with high elevation is 4221.
