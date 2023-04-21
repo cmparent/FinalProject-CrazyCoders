@@ -30,8 +30,8 @@ def avg_tourists(cur):
     data = cur.fetchall()
 
     for country in data:
-        elevations.append(country[1])
         num_tourists.append(country[0])
+        elevations.append(country[1])
 
     plt.scatter(num_tourists, elevations)
     plt.xlabel("Number of Tourists (more than 200) per Country")
