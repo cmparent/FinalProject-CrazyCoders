@@ -232,14 +232,6 @@ def ec_weather(cur):
     plt.title("Number of Threatened Species vs. Humidity (deg. F)")
     plt.show()
 
-
-
-
-
-
-
-
-
 def main():
 
     path = os.path.dirname(os.path.abspath(__file__))
