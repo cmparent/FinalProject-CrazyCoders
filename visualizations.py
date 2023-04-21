@@ -69,7 +69,7 @@ def avg_timezones(cur):
 
     f.close()
 
-# 2nd visualization - number of tourists more than 200 vs elevation (scatterplot)
+# 2nd visualization - number of tourists vs elevation less than 200 (scatterplot)
 # Elevation categories: low elevation = 0-199, medium elevation: 200-999, high elevation: 1,000+
 
 def avg_tourists(cur):
@@ -113,9 +113,9 @@ def avg_tourists(cur):
     low_elevation = round(total/len(low_data))
 
     with open('average_tourists_elevation.txt', 'w') as f:
-        f.write("In countries where the elevation is high, the average number of tourists is " + str(high_elevation) + ".\n")
-        f.write("In countries where the elevation is in the middle, the average number of tourists is " + str(medium_elevation) + ".\n")
-        f.write("In countries where the elevation is low, the average number of tourists is " + str(low_elevation) + ".")
+        f.write("In countries where the elevation is above 1,000 ft, the average number of tourists is " + str(high_elevation) + ".\n")
+        f.write("In countries where the elevation is in between 200 and 1000 ft, the average number of tourists is " + str(medium_elevation) + ".\n")
+        f.write("In countries where the elevation is below 200 ft, the average number of tourists is " + str(low_elevation) + ".")
 
     f.close()
         
@@ -129,6 +129,13 @@ def avg_tourists(cur):
     plt.ylabel('Average Number of Tourists')
     plt.title('Elevation Level vs. Average Number of Tourists')
     plt.show()
+
+    with open('avg_tourists_elevation_levels.txt', 'w') as f:
+        f.write("The average number of tourists is " + str(low_elevation) + " in countries with low elevation.\n")
+        f.write("The average number of tourists is " + str(medium_elevation) + " in countries with medium elevation.\n")
+        f.write("The average number of tourists is " + str(high_elevation) + " in countries with high elevation.")
+
+    f.close()
         
 
 # 3rd visualization - average pop. of countries grouped by AQI category 
