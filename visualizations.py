@@ -55,8 +55,8 @@ def avg_tourists(cur):
     elevations = []
     num_tourists = []
 
-    cur.execute("SELECT c.tourists , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200  ORDER BY c.tourists")
-    # cur.execute("SELECT MAX(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation > 200  ORDER BY c.tourists")
+    cur.execute("SELECT c.tourists , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation < 200  ORDER BY c.tourists")
+    # cur.execute("SELECT MAX(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation < 200  ORDER BY c.tourists")
     data = cur.fetchall()
 
     for country in data:
@@ -67,10 +67,10 @@ def avg_tourists(cur):
     # print(num_tourists)
 
     plt.scatter(num_tourists, elevations)
-    plt.xlabel("Number of Tourists (more than 200) per Country")
-    plt.ylabel("Country Elevation (ft)")
-    plt.title('Number of Tourists per Country vs. Country Elevation (ft)')
-    # plt.show()
+    plt.xlabel("Number of Tourists per Country")
+    plt.ylabel("Low Country Elevation (ft)")
+    plt.title('Number of Tourists per Country vs. Low Country Elevation (ft)')
+    plt.show()
 
     cur.execute("SELECT AVG(c.tourists) , l.elevation, l.city FROM country c JOIN airport_locations l ON c.ID = l.ID WHERE l.elevation >= 1000  GROUP BY l.elevation") 
     high_elevation = cur.fetchall()
@@ -79,7 +79,6 @@ def avg_tourists(cur):
     data = cur.fetchall()
 
     total = 0
-
     for country in data:
         total += country[0]
     medium_elevation = round(total/len(data))
@@ -89,9 +88,9 @@ def avg_tourists(cur):
     low_elevation = cur.fetchall()
 
     with open('average_tourists_elevation.txt', 'w') as f:
-        f.write("The average number of tourists where the elevation is high is " + str(round(high_elevation[0][0])) + ".\n")
-        f.write("The average number of tourists where the elevation is medium is " + str(medium_elevation) + ".\n")
-        f.write("The average number of tourists where the elevation is low is " + str (round(low_elevation[0][0])) + ".")
+        f.write("In countries where the elevation is high, the average number of tourists is " + str(round(high_elevation[0][0])) + ".\n")
+        f.write("In countries where the elevation is in the middle, the average number of tourists is " + str(medium_elevation) + ".\n")
+        f.write("In countries where the elevation is low, the average number of tourists is " + str(round(low_elevation[0][0]) + "."))
 
     f.close()
         
