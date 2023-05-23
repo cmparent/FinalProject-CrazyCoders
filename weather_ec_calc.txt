@@ -1,0 +1,2 @@
+The largest number of threatened species, 470.0, is located in country with 24 degrees of humidity.
+The smallest number of threatened species, 48.0, is located in country with 21 degrees of humidity.
